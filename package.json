@@ -1,0 +1,33 @@
+{
+  "name": "sweet-corner-api",
+  "version": "1.0.0",
+  "description": "API for Sweet Corner project, including user auth",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scbowler/sweet-corner-api.git"
+  },
+  "author": "Scott Bowler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/scbowler/sweet-corner-api/issues"
+  },
+  "homepage": "https://github.com/scbowler/sweet-corner-api#readme",
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "nodemon": "^1.19.0"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "jwt-simple": "^0.5.6",
+    "mysql2": "^1.6.5",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "sequelize": "^5.8.5"
+  }
+}
