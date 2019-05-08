@@ -1,10 +1,10 @@
 const router = require('express').Router();
+const { test } = require(__basedir + '/controllers/auth');
 
-router.get('/test', (req, res) => {
-    res.send({
-        success: true,
-        message: 'Sweet Corner AUTH API test working'
-    });
-});
+/*
+    /auth routes
+*/
+
+router.get('/test', test);
 
 module.exports = router;

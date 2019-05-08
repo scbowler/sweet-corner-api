@@ -7,6 +7,7 @@ const app = express();
 
 app.use(cors());
 
+require('./db');
 require('./routes')(app);
 
 if(NODE_ENV !== 'production'){

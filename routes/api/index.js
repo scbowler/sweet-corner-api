@@ -1,10 +1,10 @@
 const router = require('express').Router();
+const { test } = require(__basedir + '/controllers/api');
 
-router.get('/test', (req, res) => {
-    res.send({
-        success: true,
-        message: 'Sweet Corner API test working'
-    });
-});
+/*
+    /api routes
+*/
+
+router.get('/test', test);
 
 module.exports = router;
