@@ -22,4 +22,4 @@ if(NODE_ENV !== 'production'){
     });
 }
 
-module.exports = app;
+exports.app = app;
