@@ -6,6 +6,7 @@ global.__basedir = __dirname;
 const app = express();
 
 app.use(cors());
+app.use(express.urlencoded({extended: false}));
 
 require('./db');
 require('./routes')(app);
