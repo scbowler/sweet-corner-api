@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const NODE_ENV = process.env.NODE_ENV || 'dev';
+const NODE_ENV = process.env.NODE_ENV || 'production';
 global.__basedir = __dirname;
 
 const app = express();
