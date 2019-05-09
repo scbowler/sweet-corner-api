@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcryptjs');
 const { findByMid } = require('./interfaces');
 
 module.exports = (db, roles) => {
@@ -45,9 +45,22 @@ module.exports = (db, roles) => {
         paranoid: true
     });
 
-    Users.belongsTo(roles, { as: 'role' });
+    Users.prototype.comparePasswords = function (candidatePassword) {
+        return new Promise((resolve, reject) => {
+            bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve(isMatch);
+            });
+        });
+    }
+
+    Users.belongsTo(roles, { as: 'role', allowNull: false });
 
     Users.findByMid = findByMid;
+
+    // Users.sync({force: true});
 
     return Users;
 }
