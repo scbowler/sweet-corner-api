@@ -17,7 +17,7 @@ module.exports = (db, users) => {
             allowNull: false,
             type: Sequelize.STRING
         },
-        path: {
+        file: {
             allowNull: false,
             type: Sequelize.STRING
         },
@@ -28,8 +28,8 @@ module.exports = (db, users) => {
         },
         type: {
             allowNull: false,
-            type: Sequelize.ENUM('thumbnail', 'full'),
-            defaultValue: 'full'
+            type: Sequelize.ENUM('full_images', 'thumbnails'),
+            defaultValue: 'full_images'
         }
     },
     {
@@ -39,6 +39,8 @@ module.exports = (db, users) => {
     Images.belongsTo(users, { as: 'createdBy', allowNull: false });
 
     Images.findByPid = findByPid;
+
+    // Images.sync({ force: true });
 
     return Images;
 }

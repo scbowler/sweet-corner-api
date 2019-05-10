@@ -1,32 +1,22 @@
-const { users } = require('../models');
+const { users, userRoles } = require('../models');
+const { initialUser } = require(__basedir + '/config/db');
+const bcrypt = require('bcryptjs');
 const { addToDatabase } = require(__basedir + '/helpers');
 
-const defaultUsers = [
-    {
-        email: 'test@mail.com',
-        firstName: 'Jim',
-        lastName: 'Smith',
-        password: 'asdf',
-        roleId: 1
-    }
-];
+const buildDefaultUsers = async () => {
+    const { email, firstName, lastName, password: plainPassword, role } = initialUser;
+
+    const { id: roleId = null } = await userRoles.findByMid(role, {
+        attributes: ['id']
+    });
+
+    const password = await bcrypt.hash(plainPassword, 10);
+
+    return [
+        { email, firstName, lastName, password, roleId }
+    ];
+}
 
 const match = d => ({ email }) => (email === d.email);
 
-module.exports = async () => addToDatabase(defaultUsers, users, match);
-
-// addInitialUserRoles(defaultRoles);
-
-// async function addInitialUserRoles(defaults) {
-//     const roles = await userRoles.findAll();
-
-//     const needToAdd = defaults.filter(d => (
-//         roles.length
-//             ? roles.findIndex(({ mid }) => (mid === d.mid)) === -1
-//             : true
-//     ));
-
-//     if (needToAdd.length) {
-//         userRoles.bulkCreate(needToAdd);
-//     }
-// }
+module.exports = async () => addToDatabase(buildDefaultUsers, users, match);

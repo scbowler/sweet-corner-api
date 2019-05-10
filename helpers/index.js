@@ -1,4 +1,8 @@
 exports.addToDatabase = async function(values, model, match) {
+    if(typeof values === 'function'){
+        values = await values();
+    }
+
     const data = await model.findAll();
 
     const needToAdd = values.filter(d => (
@@ -8,6 +12,10 @@ exports.addToDatabase = async function(values, model, match) {
     ));
 
     if (needToAdd.length) {
-        model.bulkCreate(needToAdd);
+        await model.bulkCreate(needToAdd);
+
+        return true;
     }
+
+    return false;
 }

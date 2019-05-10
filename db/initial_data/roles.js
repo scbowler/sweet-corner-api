@@ -20,20 +20,4 @@ const defaultRoles = [
 
 const match = d => ({mid}) => (mid === d.mid);
 
-addToDatabase(defaultRoles, userRoles, match);
-
-// addInitialUserRoles(defaultRoles);
-
-// async function addInitialUserRoles(defaults) {
-//     const roles = await userRoles.findAll();
-
-//     const needToAdd = defaults.filter(d => (
-//         roles.length
-//             ? roles.findIndex(({ mid }) => (mid === d.mid)) === -1
-//             : true
-//     ));
-
-//     if (needToAdd.length) {
-//         userRoles.bulkCreate(needToAdd);
-//     }
-// }
+module.exports = async () => addToDatabase(defaultRoles, userRoles, match);

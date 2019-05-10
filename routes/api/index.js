@@ -7,4 +7,6 @@ const { test } = require(__basedir + '/controllers/api');
 
 router.get('/test', test);
 
+router.use('/products', require('./products'));
+
 module.exports = router;

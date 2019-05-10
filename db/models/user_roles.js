@@ -28,7 +28,5 @@ module.exports = db => {
 
     userRoles.findByMid = findByMid;
 
-    userRoles.sync({force: true});
-
     return userRoles;
 }

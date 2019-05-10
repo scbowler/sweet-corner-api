@@ -129,3 +129,7 @@ const defaultImages = [
         createdById: 1
     }
 ];
+
+const match = d => ({file, type}) => ( file + type === d.file + d.type);
+
+module.exports = async () => addToDatabase(defaultImages, images, match);
