@@ -23,6 +23,6 @@ module.exports = sequelize;
 
 require('./models');
 
-sequelize.sync().then(() => {
-    require('./initial_roles');
+sequelize.sync({force: true}).then(() => {
+    // require('./initial_roles');
 });

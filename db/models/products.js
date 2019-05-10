@@ -1,9 +1,17 @@
 const Sequelize = require('sequelize');
 const { findByPid } = require('./interfaces');
 
-module.exports = (db, users) => {
-    const Images = db.define('images', {
-        altText: {
+module.exports = (db, images, users) => {
+    const Products = db.define('products', {
+        caption: {
+            allowNull: true,
+            type: Sequelize.STRING
+        },
+        cost: {
+            allowNull: false,
+            type: Sequelize.INTEGER.UNSIGNED
+        },
+        description: {
             allowNull: true,
             type: Sequelize.STRING
         },
@@ -17,28 +25,21 @@ module.exports = (db, users) => {
             allowNull: false,
             type: Sequelize.STRING
         },
-        path: {
-            allowNull: false,
-            type: Sequelize.STRING
-        },
         pid: {
             allowNull: false,
             type: Sequelize.UUID,
             defaultValue: Sequelize.UUIDV4
         },
-        type: {
-            allowNull: false,
-            type: Sequelize.ENUM('thumbnail', 'full'),
-            defaultValue: 'full'
-        }
     },
     {
         paranoid: true
     });
 
-    Images.belongsTo(users, { as: 'createdBy', allowNull: false });
+    Products.belongsTo(users, { as: 'createdBy', allowNull: false });
+    Products.belongsTo(images, { as: 'image', allowNull: false });
+    Products.belongsTo(images, { as: 'thumbnail', allowNull: false });
 
-    Images.findByPid = findByPid;
+    Products.findByPid = findByPid;
 
-    return Images;
+    return Products;
 }
