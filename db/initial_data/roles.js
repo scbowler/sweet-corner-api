@@ -1,4 +1,5 @@
-const { userRoles } = require('./models');
+const { userRoles } = require('../models');
+const { addToDatabase } = require(__basedir + '/helpers');
 const defaultRoles = [
     {
         description: 'Site administrator with full site access',
@@ -17,18 +18,6 @@ const defaultRoles = [
     }
 ];
 
-addInitialUserRoles(defaultRoles);
+const match = d => ({mid}) => (mid === d.mid);
 
-async function addInitialUserRoles(defaults) {
-    const roles = await userRoles.findAll();
-
-    const needToAdd = defaults.filter(d => (
-        roles.length
-            ? roles.findIndex(({ mid }) => (mid === d.mid)) === -1
-            : true
-    ));
-
-    if (needToAdd.length) {
-        userRoles.bulkCreate(needToAdd);
-    }
-}
+module.exports = async () => addToDatabase(defaultRoles, userRoles, match);

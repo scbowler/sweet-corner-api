@@ -23,6 +23,9 @@ module.exports = sequelize;
 
 require('./models');
 
-sequelize.sync().then(() => {
-    require('./initial_roles');
+sequelize.sync().then( async () => {
+    await require('./initial_data/roles')();
+    await require('./initial_data/users')();
+    await require('./initial_data/images')();
+    await require('./initial_data/products')();
 });
