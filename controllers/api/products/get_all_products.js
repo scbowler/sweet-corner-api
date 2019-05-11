@@ -3,7 +3,7 @@ const { sendError } = require(__basedir + '/helpers/error_handling');
 
 module.exports = async (req, res) => {
     try {
-        let allProducts = await products.findAll({
+        const allProducts = await products.findAll({
             attributes: ['caption', 'cost', 'name', 'pid'],
             include: {
                 association: 'thumbnail',
