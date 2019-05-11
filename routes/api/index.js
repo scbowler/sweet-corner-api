@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { test } = require(__basedir + '/controllers/api');
 const { optionalAuth } = require(__basedir + '/routes/setup');
+const { withCart } = require(__basedir + '/middleware/cart');
 
 /*
     /api routes
@@ -29,7 +30,7 @@ router.get('/cookie/clear', (req, res) => {
     res.send('Cookie cleared');
 })
 
-router.use('/cart', optionalAuth, require('./cart'));
+router.use('/cart', optionalAuth, withCart, require('./cart'));
 router.use('/products', require('./products'));
 
 module.exports = router;
