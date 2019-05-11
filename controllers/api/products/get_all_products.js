@@ -11,10 +11,26 @@ module.exports = async (req, res) => {
             }
         });
 
+        if(allProducts){
+            allProducts.map(p => {
+                const product = p.dataValues;
+
+                product.thumbnail = p.thumbnail.dataValues
+
+                product.thumbnail.url = imageUrls(req, p.thumbnail);
+
+                return product;
+            });
+        }
+
         res.send({
             products: allProducts || []
         });
     } catch(err){
         sendError(res, err, 'Error fetching product list');
     }
+}
+
+function imageUrls(req, {file, type}){
+    return `${req.protocol}://${req.get('host')}/images/${type}/${file}`;
 }
