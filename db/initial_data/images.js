@@ -87,15 +87,15 @@ const defaultImages = [
         createdById: 1
     },
     {
-        altText: 'Vanilla cupcake with vanilla ice cream',
-        name: 'Vanilla Ice Cake',
+        altText: 'Vanilla cupcake with vanilla frosting',
+        name: 'Vanilla Stack Cake',
         file: 'cupcake_sq_7.jpg',
         type: 'full_images',
         createdById: 1
     },
     {
-        altText: 'Vanilla cupcake with vanilla ice cream',
-        name: 'Vanilla Ice Cake',
+        altText: 'Vanilla cupcake with vanilla frosting',
+        name: 'Vanilla Stack Cake',
         file: 'cupcake_sq_7.jpg',
         type: 'thumbnails',
         createdById: 1

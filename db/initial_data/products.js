@@ -57,10 +57,10 @@ const defaultProducts = [
         thumbnailId: 12
     },
     {
-        caption: 'Vanilla Cupcake Piled with Vanilla Ice Cream',
+        caption: 'Vanilla Cupcake Piled with Vanilla Frosting',
         cost: 600,
-        description: 'Not just another vanilla cupcake. Our Vanilla Ice Cake cupcake is stacked with three scoops of vanilla ice cream and topped with a delicious cherry.',
-        name: 'Vanilla Ice Cake',
+        description: 'Not just another vanilla cupcake. Our Vanilla Stack Cake cupcake is stacked with three scoops of vanilla frosting and topped with drizzled vanilla and a delicious cherry.',
+        name: 'Vanilla Stack Cake',
         createdById: 1,
         imageId: 13,
         thumbnailId: 14
