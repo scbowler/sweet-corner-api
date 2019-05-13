@@ -19,6 +19,28 @@ exports.basicAuth = authHeaderKey => {
     }
 }
 
+exports.getUserIfSignedIn = authHeaderKey => {
+    if (!authHeaderKey) throw new Error('Missing Auth Header Key for apiRouteAuth middleware');
+    return async (req, res, next) => {
+        try {
+            const token = req.headers[authHeaderKey];
+
+            if(!token) throw new Error('No token found');
+
+            const user = await getUserFromToken(token);
+
+            if(!user) throw new Error('Bad token');
+
+            req.user = user;
+
+            return next();
+        } catch(err){
+            req.user = null;
+            return next();
+        }
+    }
+}
+
 async function getUserFromToken(token) {
 
     const { uid, ts } = jwt.decode(token, secret);
@@ -33,7 +55,7 @@ async function getUserFromToken(token) {
     if (!user) throw new Error('Not Authorized');
 
     user.last_accessed_at = now;
-    user.save();
+    await user.save();
 
     return user;
 }
