@@ -1,14 +1,14 @@
 const router = require('express').Router();
 const { notFound } = require(__basedir + '/controllers/errors');
-const { getAll, getOne } = require(__basedir + '/controllers/api/products');
+const { addItem, getCurrent } = require(__basedir + '/controllers/api/cart');
 
 /*
-    /api/products routes
+    /api/cart routes
 */
 
-router.get('/', getAll);
+router.get('/', getCurrent);
 
-router.get('/:product_id', getOne);
+router.post('/:productId', addItem);
 
 router.all('*', notFound);
 
