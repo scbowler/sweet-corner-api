@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { notFound } = require(__basedir + '/controllers/errors');
 const { getAll } = require(__basedir + '/controllers/api/products');
 
 /*
@@ -6,5 +7,7 @@ const { getAll } = require(__basedir + '/controllers/api/products');
 */
 
 router.get('/', getAll);
+
+router.all('*', notFound);
 
 module.exports = router;
