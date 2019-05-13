@@ -1,4 +1,5 @@
 const { products } = require(__basedir + '/db/models');
+const { imageUrls } = require(__basedir + '/helpers');
 const { sendError } = require(__basedir + '/helpers/error_handling');
 
 module.exports = async (req, res) => {
@@ -29,8 +30,4 @@ module.exports = async (req, res) => {
     } catch(err){
         sendError(res, err, 'Error fetching product list');
     }
-}
-
-function imageUrls(req, {file, type}){
-    return `${req.protocol}://${req.get('host')}/images/${type}/${file}`;
 }

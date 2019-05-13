@@ -19,3 +19,7 @@ exports.addToDatabase = async function(values, model, match) {
 
     return false;
 }
+
+exports.imageUrls = (req, { file, type }) => (
+    `${req.protocol}://${req.get('host')}/images/${type}/${file}`
+);
