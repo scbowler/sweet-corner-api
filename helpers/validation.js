@@ -20,6 +20,7 @@ module.exports = {
     name: name => test(name, rawRegex.nameRegex),
     phone: phone => test(phone, rawRegex.phoneBasic),
     password: pass => test(pass, rawRegex.passwordRegex, true),
+    pid: pid => test(pid, rawRegex.idRegex),
     username: username => test(username, rawRegex.usernameRegex),
     rawRegex
 };
