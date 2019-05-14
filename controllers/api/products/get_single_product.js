@@ -1,4 +1,5 @@
 const { products } = require(__basedir + '/db/models');
+const { imageUrls } = require(__basedir + '/helpers');
 const validation = require(__basedir + '/helpers/validation');
 const { StatusError } = require(__basedir + '/helpers/error_handling');
 
@@ -27,6 +28,9 @@ module.exports = async (req, res, next) => {
         if(!product){
             throw new StatusError(404, `No product found with an ID of ${product_id}`);
         }
+
+        product.image.dataValues.url = imageUrls(req, product.image);
+        product.thumbnail.dataValues.url = imageUrls(req, product.thumbnail);
 
         res.send({ product });
     } catch(err){
