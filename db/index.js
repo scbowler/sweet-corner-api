@@ -28,4 +28,5 @@ sequelize.sync().then( async () => {
     await require('./initial_data/users')();
     await require('./initial_data/images')();
     await require('./initial_data/products')();
+    await require('./initial_data/cart_statuses')();
 });
