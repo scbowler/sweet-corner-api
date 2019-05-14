@@ -1,3 +1,5 @@
 module.exports = (req, res) => {
-    res.send('Get Cart API Working!');
+    const { cart } = req;
+    
+    res.send({ cart });
 }
