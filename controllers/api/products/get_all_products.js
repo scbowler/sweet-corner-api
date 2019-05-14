@@ -1,8 +1,7 @@
 const { products } = require(__basedir + '/db/models');
 const { imageUrls } = require(__basedir + '/helpers');
-const { sendError } = require(__basedir + '/helpers/error_handling');
 
-module.exports = async (req, res) => {
+module.exports = async (req, res, next) => {
     try {
         const allProducts = await products.findAll({
             attributes: ['caption', 'cost', 'name', 'pid'],
@@ -28,6 +27,7 @@ module.exports = async (req, res) => {
             products: allProducts || []
         });
     } catch(err){
-        sendError(res, err, 'Error fetching product list');
+        err.default = 'Error fetching product list';
+        next(err);
     }
 }

@@ -1,9 +1,9 @@
 const { tokenForUser, userDataToSend } = require('./authentication');
 const { users, userRoles } = require(__basedir + '/db/models');
 const validation = require(__basedir + '/helpers/validation');
-const { errorFlag, sendError, StatusError } = require(__basedir + '/helpers/error_handling');
+const { StatusError } = require(__basedir + '/helpers/error_handling');
 
-module.exports = async (req, res) => {
+module.exports = async (req, res, next) => {
     const { email, firstName, lastName, password } = req.body;
     const errors = [];
 
@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
 
         const existingUser = await users.findOne({ where: { email } });
 
-        if (existingUser) throw new StatusError(422, null, 'Email already in use' + errorFlag);
+        if (existingUser) throw new StatusError(422, 'Email already in use');
 
         let user = null;
 
@@ -36,7 +36,7 @@ module.exports = async (req, res) => {
             }) || {};
 
             if(!roleId){
-                throw new StatusError(500, null, 'Unable to create customer' + errorFlag);
+                throw new StatusError(500, 'Unable to create customer');
             }
 
             const newUser = users.build({
@@ -49,8 +49,7 @@ module.exports = async (req, res) => {
 
             user = await newUser.save();
         } catch (err) {
-            console.log(err);
-            throw new Error('Unable to create new user' + errorFlag);
+            throw new StatusError(500, 'Unable to create new user');
         }
 
         res.send({
@@ -58,6 +57,7 @@ module.exports = async (req, res) => {
             user: userDataToSend(user)
         });
     } catch (err) {
-        sendError(res, err, 'Error creating new account');
+        err.default = 'Error creating new account';
+        next(err);
     }
 }

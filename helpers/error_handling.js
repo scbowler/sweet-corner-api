@@ -1,46 +1,32 @@
-const errorFlag = 'THROWN_ERROR';
-
-exports.errorFlag = errorFlag;
-
-exports.sendError = function (res, err, defaultMessage = 'An error occurred', defaultErrorCode = 500) {
-    const error = {
-        success: false,
-        errors: formatError(err, defaultMessage)
-    };
-    const status = err.status || defaultErrorCode;
-
-    res.status(status).send(error);
-}
-
-exports.StatusError = class extends Error {
-    constructor(status = 500, array = null, ...params) {
+class StatusError extends Error {
+    constructor(status = 500, messages = [], forClient = true, ...params) {
         super(...params);
 
-        this.array = array;
+        if(!Array.isArray(messages)){
+            if (!typeof messages === 'string') {
+                throw new Error('StatusError second argument must be an array or a string only');
+            }
+
+            messages = [ messages ];
+        }
+
+        this.forClient = forClient;
+        this.messages = messages;
         this.status = status;
     }
 }
 
-exports.formatError = formatError;
+function formatError(err, defaultErrorMessage) {
+    let formattedErrors = [defaultErrorMessage];
 
-function formatError(err, defaultErrorMessage, flagStr = errorFlag) {
-    let formattedError = [defaultErrorMessage];
-
-    if (err instanceof Error) {
-        err = (err.array && err.array.length && err.array) || err.message;
+    if (err instanceof StatusError && err.forClient && err.messages.length) {
+        formattedErrors = err.messages
     }
 
-    if (typeof err === 'string') {
-        const index = err.search(flagStr);
-
-        if (index >= 0) {
-            formattedError = [err.replace(flagStr, '').trim()];
-        }
-    } else if (Array.isArray(err)) {
-        formattedError = err;
-    }
-
-    return formattedError;
+    return formattedErrors;
 }
+
+exports.formatError = formatError;
+exports.StatusError = StatusError;
 
 module.exports = exports;
