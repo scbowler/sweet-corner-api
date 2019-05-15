@@ -55,10 +55,10 @@ module.exports = (sequelize, cartStatuses, users) => {
                     }
                 });
 
-                return items.reduce((pv, { product, quantity }) => ({
-                    total: pv.total + (product.cost * quantity),
-                    items: pv.items + quantity
-                }), {total: 0, items: 0});
+                return items.reduce((total, { product, quantity }) => ({
+                    cost: total.cost + (product.cost * quantity),
+                    items: total.items + quantity
+                }), {cost: 0, items: 0});
             }
         }
     };

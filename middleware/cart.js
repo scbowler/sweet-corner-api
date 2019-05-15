@@ -14,16 +14,7 @@ exports.withCart = async (req, res, next) => {
     if(req.cart){
         req.cart.getTotals = req.cart.getTotals(cartItems);
         req.cart.getItems = req.cart.getItems(cartItems);
-
-        const totals = await req.cart.getTotals();
-        const items = await req.cart.getItems(req);
-
-        console.log('Cart Totals:', totals);
-        console.log('Cart Items:', items);
     }
     
-
-    
-
     return next();
 }
