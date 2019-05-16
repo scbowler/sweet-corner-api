@@ -1,23 +1,20 @@
-exports.withCart = (req, res, next) => {
+const { carts, cartItems } = require(__basedir + '/db/models');
+
+exports.withCart = async (req, res, next) => {
     const { cookies: {sc_cart_pid = null}, user } = req;
-
-    if(user){
-        console.log('Found user, check if user has cart');
-
-        req.cart = 'User cart';
-
-        return next();
-    }
-
-    if(sc_cart_pid){
-        console.log('Found cart pid in cookie');
-
-        req.cart = 'Cookie PID cart';
-
-        return next();
-    }
 
     req.cart = null;
 
+    if(user){
+        req.cart = await carts.findActiveByUid(user.id);
+    } else if(sc_cart_pid){
+        req.cart = await carts.findByPid(sc_cart_pid);
+    }
+
+    if(req.cart){
+        req.cart.getTotals = req.cart.getTotals(cartItems);
+        req.cart.getItems = req.cart.getItems(cartItems);
+    }
+    
     return next();
 }

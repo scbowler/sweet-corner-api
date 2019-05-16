@@ -8,6 +8,11 @@ module.exports = (db, cart, product) => {
             primaryKey: true,
             type: Sequelize.INTEGER.UNSIGNED
         },
+        pid: {
+            allowNull: false,
+            type: Sequelize.UUID,
+            defaultValue: Sequelize.UUIDV4
+        },
         quantity: {
             allowNull: false,
             type: Sequelize.INTEGER.UNSIGNED

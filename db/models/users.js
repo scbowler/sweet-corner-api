@@ -19,6 +19,11 @@ module.exports = (db, roles) => {
             primaryKey: true,
             type: Sequelize.INTEGER
         },
+        lastAccessedAt: {
+            allowNull: false,
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.NOW
+        },
         lastName: {
             allowNull: false,
             type: Sequelize.STRING
