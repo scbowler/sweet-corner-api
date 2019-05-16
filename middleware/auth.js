@@ -54,7 +54,7 @@ async function getUserFromToken(token) {
 
     if (!user) throw new Error('Not Authorized');
 
-    user.last_accessed_at = now;
+    user.lastAccessedAt = now;
     await user.save();
 
     return user;
