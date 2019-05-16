@@ -11,6 +11,17 @@ module.exports = (sequelize, cartStatuses, users) => {
         static findByUid(){
             return findByUid.apply(this, arguments);
         }
+        static async findActiveById(id, options = {}) {
+            const { id: statusId = null } = await cartStatuses.findByMid('active') || {};
+
+            if (!statusId) return null;
+
+            return this.findOne({
+                ...options,
+                order: [['updatedAt', 'DESC']],
+                where: { id, statusId, userId: null }
+            });
+        }
         static async findActiveByPid(pid, options = {}) {
             const { id: statusId = null } = await cartStatuses.findByMid('active') || {};
 
@@ -34,8 +45,8 @@ module.exports = (sequelize, cartStatuses, users) => {
             });
         }
 
-        cartUpdated(){
-            this.updatedAt = new Date();
+        cartUsed(){
+            this.lastInteraction = new Date();
 
             return this.save();
         }
@@ -95,6 +106,11 @@ module.exports = (sequelize, cartStatuses, users) => {
             autoIncrement: true,
             primaryKey: true,
             type: Sequelize.INTEGER
+        },
+        lastInteraction: {
+            allowNull: true,
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.NOW
         },
         pid: {
             allowNull: false,

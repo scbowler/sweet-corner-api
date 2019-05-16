@@ -15,6 +15,7 @@ exports.withCart = cartHeader => {
                 req.cart = await carts.findActiveByUid(user.id);
             } else if (cartToken) {
                 req.cart = await getCartFromToken(cartToken);
+                req.cartToken = cartToken;
             }
 
             if (req.cart) {
@@ -40,7 +41,7 @@ async function getCartFromToken(token){
             throw new StatusError(422, 'Cart token expired');
         }
 
-        const cart = await carts.findActiveByPid(cartId);
+        const cart = await carts.findActiveById(cartId);
 
         if (!cart) throw new StatusError(406, 'No active cart found with token data');
 
@@ -51,6 +52,6 @@ async function getCartFromToken(token){
             throw new StatusError(422, 'Invalid token');
         }
 
-        return null;
+        throw err;
     }
 }
