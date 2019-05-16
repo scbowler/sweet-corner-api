@@ -12,8 +12,8 @@ module.exports = async (req, res) => {
 
         formattedCart = {
             cart: {
+                id: cart.pid,
                 items,
-                pid: cart.pid,
                 total
             }
         }

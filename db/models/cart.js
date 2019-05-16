@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const { imageUrls } = require(__basedir + '/helpers');
-const { findActiveByUid, findByPid, findByUid } = require('./interfaces');
+const { findByPid, findByUid } = require('./interfaces');
 const { Model } = Sequelize;
 
 module.exports = (sequelize, cartStatuses, users) => {
@@ -10,9 +10,28 @@ module.exports = (sequelize, cartStatuses, users) => {
         }
         static findByUid(){
             return findByUid.apply(this, arguments);
-        };
-        static findActiveByUid(){
-            return findActiveByUid(cartStatuses).apply(this, arguments);
+        }
+        static async findActiveByPid(pid, options = {}) {
+            const { id: statusId = null } = await cartStatuses.findByMid('active') || {};
+
+            if(!statusId) return null;
+
+            return this.findOne({
+                ...options,
+                order: [['updatedAt', 'DESC']],
+                where: { pid, statusId, userId: null }
+            });
+        }
+        static async findActiveByUid(userId, options = {}){
+            const { id: statusId = null } = await cartStatuses.findByMid('active') || {};
+
+            if (!statusId) return null;
+
+            return this.findOne({
+                ...options,
+                where: { statusId, userId },
+                order: [['updatedAt', 'DESC']]
+            });
         }
 
         getItems(cartItems){
