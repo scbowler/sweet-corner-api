@@ -10,8 +10,8 @@ module.exports = async (req, res) => {
 
         if(!validation.pid(productId)) throw new StatusError(422, 'Invalid product id format');
 
-        const { id: productShortId = null } = await products.findByPid(productId, {
-            attributes: ['id']
+        const { id: productShortId = null, name } = await products.findByPid(productId, {
+            attributes: ['id', 'name']
         }) || {};
 
         if (!productShortId) throw new StatusError(422, `No product found with an ID of ${productId}`);
@@ -27,6 +27,8 @@ module.exports = async (req, res) => {
                 statusId,
                 userId: user && user.id
             });
+
+            cart.getTotals = cart.getTotals(cartItems);
 
             if(!user){
                 res.cookie('sc_cart_pid', cart.pid);
@@ -58,7 +60,8 @@ module.exports = async (req, res) => {
 
         res.send({
             cartId: cart.pid,
-            message: `${quantity} items added to cart`,
+            itemId: cartItem.pid,
+            message: `${quantity} ${name} cupcake${quantity > 1 ? 's' : ''} added to cart`,
             total
         });
     } catch(err) {

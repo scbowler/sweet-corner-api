@@ -18,7 +18,7 @@ module.exports = (sequelize, cartStatuses, users) => {
         getItems(cartItems){
             return async (req) => {
                 const items = await cartItems.findAll({
-                    attributes: ['quantity', 'createdAt'],
+                    attributes: ['createdAt', 'pid', 'quantity'],
                     where: { cartId: this.id },
                     include: {
                         association: 'product',
@@ -30,11 +30,12 @@ module.exports = (sequelize, cartStatuses, users) => {
                     }
                 });
 
-                return items.map(({product: { cost: each, name, pid, thumbnail }, quantity, createdAt: added}) => ({
+                return items.map(({product: { cost: each, name, pid: productId, thumbnail }, pid: id, quantity, createdAt: added}) => ({
                     added,
                     each,
+                    id,
                     name,
-                    productId: pid,
+                    productId,
                     quantity,
                     thumbnail: {
                         altText: thumbnail.altText,

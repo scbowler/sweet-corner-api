@@ -1,33 +1,36 @@
-const { cartItems, products } = require(__basedir + '/db/models');
+const { cartItems } = require(__basedir + '/db/models');
 const validation = require(__basedir + '/helpers/validation');
 const { StatusError } = require(__basedir + '/helpers/error_handling');
 
 module.exports = async (req, res, next) => {
-    const { cart, params: { productId } } = req;
+    const { cart, params: { itemId } } = req;
     
     try {
-        if (!validation.pid(productId)) {
-            throw new StatusError(422, 'Invalid product ID format');
+        if(!cart){
+            throw new StatusError(406, 'No active cart to delete item from')
         }
 
-        const product = await products.findByPid(productId, {
-            attributes: ['id']
-        });
-
-        if(!product){
-            throw new StatusError(422, `No product found with ID of: ${productId}`);
+        if (!validation.pid(itemId)) {
+            throw new StatusError(422, 'Invalid item ID format');
         }
 
         const item = await cartItems.findOne({
+            attributes: ['id', 'cartId'],
+            include: {
+                association: 'product',
+                attributes: ['name']
+            },
             where: {
-                cartId: cart.id,
-                productId: product.id
+                pid: itemId,
+                cartId: cart.id
             }
         });
 
         if(!item){
-            throw new StatusError(404, `No product with ID: ${productId}, in cart`);
+            throw new StatusError(406, `Item (${itemId}) is not in your current active cart`);
         }
+
+        const productName = item.product.name;
 
         await item.destroy();
 
@@ -35,11 +38,11 @@ module.exports = async (req, res, next) => {
 
         res.send({
             cartId: cart.pid,
-            message: `Deleted item (${productId}) from cart`,
+            message: `Removed all ${productName} items from cart`,
             total
         });
     } catch(err){
-        err.default = `Error deleting item (${productId}) from cart`;
+        err.default = `Error deleting item (${itemId}) from cart`;
 
         next(err);
     }
