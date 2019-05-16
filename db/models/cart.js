@@ -34,6 +34,12 @@ module.exports = (sequelize, cartStatuses, users) => {
             });
         }
 
+        cartUpdated(){
+            this.updatedAt = new Date();
+
+            return this.save();
+        }
+
         getItems(cartItems){
             return async (req) => {
                 const items = await cartItems.findAll({

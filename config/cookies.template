@@ -1,4 +1,0 @@
-module.exports = {
-    secret: '',
-    maxAge: 60 * 60 * 24 * D // Replace D, where D represents number of days until cookie will expire 
-}
