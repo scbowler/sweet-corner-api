@@ -3,7 +3,7 @@ const validation = require(__basedir + '/helpers/validation');
 const { StatusError } = require(__basedir + '/helpers/error_handling');
 
 module.exports = async (req, res, next) => {
-    const { body: { quantity }, cart, method, params: { itemId } } = req;
+    const { body: { quantity = 1 }, cart, method, params: { itemId } } = req;
 
     try {
         if(!cart){
