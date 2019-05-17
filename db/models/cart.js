@@ -52,13 +52,13 @@ module.exports = (sequelize, cartStatuses, users) => {
         }
 
         getItems(cartItems){
-            return async (req) => {
+            return async (req, internal = false) => {
                 const items = await cartItems.findAll({
-                    attributes: ['createdAt', 'pid', 'quantity'],
+                    attributes: ['createdAt', 'id', 'pid', 'quantity'],
                     where: { cartId: this.id },
                     include: {
                         association: 'product',
-                        attributes: ['cost', 'name', 'pid',],
+                        attributes: ['cost', 'id', 'name', 'pid',],
                         include: {
                             association: 'thumbnail',
                             attributes: [ 'altText', 'file', 'type']
@@ -66,12 +66,12 @@ module.exports = (sequelize, cartStatuses, users) => {
                     }
                 });
 
-                return items.map(({product: { cost: each, name, pid: productId, thumbnail }, pid: itemId, quantity, createdAt: added}) => ({
+                return items.map(({product: { cost: each, id: productId, name, pid: productPid, thumbnail },id: itemId, pid: itemPid, quantity, createdAt: added}) => ({
                     added,
                     each,
-                    itemId,
+                    itemId: internal ? itemId: itemPid,
                     name,
-                    productId,
+                    productId: internal ? productId : productPid,
                     quantity,
                     thumbnail: {
                         altText: thumbnail.altText,

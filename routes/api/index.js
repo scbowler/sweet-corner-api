@@ -11,6 +11,8 @@ router.get('/test', test);
 
 router.use('/cart', optionalAuth, withCart, require('./cart'));
 
+router.use('/orders', require('./orders'));
+
 router.use('/products', require('./products'));
 
 router.all('*', notFound);

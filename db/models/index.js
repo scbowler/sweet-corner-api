@@ -14,11 +14,23 @@ const carts = require('./cart')(db, cartStatuses, users);
 
 const cartItems = require('./cart_items')(db, carts, products);
 
+const guests = require('./guests')(db);
+
+const orderStatuses = require('./order_statuses')(db);
+
+const orders = require('./orders')(db, carts, guests, orderStatuses, users);
+
+const orderItems = require('./order_items')(db, orders, products);
+
 module.exports = {
-    carts,
     cartItems,
     cartStatuses,
+    carts,
+    guests,
     images,
+    orderItems,
+    orderStatuses,
+    orders,
     products,
     userRoles,
     users
