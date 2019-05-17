@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const { imageUrls } = require(__basedir + '/helpers');
-const { findActiveByUid, findByPid, findByUid } = require('./interfaces');
+const { findByPid, findByUid } = require('./interfaces');
 const { Model } = Sequelize;
 
 module.exports = (sequelize, cartStatuses, users) => {
@@ -10,9 +10,45 @@ module.exports = (sequelize, cartStatuses, users) => {
         }
         static findByUid(){
             return findByUid.apply(this, arguments);
-        };
-        static findActiveByUid(){
-            return findActiveByUid(cartStatuses).apply(this, arguments);
+        }
+        static async findActiveById(id, options = {}) {
+            const { id: statusId = null } = await cartStatuses.findByMid('active') || {};
+
+            if (!statusId) return null;
+
+            return this.findOne({
+                ...options,
+                order: [['lastInteraction', 'DESC']],
+                where: { id, statusId, userId: null }
+            });
+        }
+        static async findActiveByPid(pid, options = {}) {
+            const { id: statusId = null } = await cartStatuses.findByMid('active') || {};
+
+            if(!statusId) return null;
+
+            return this.findOne({
+                ...options,
+                order: [['lastInteraction', 'DESC']],
+                where: { pid, statusId, userId: null }
+            });
+        }
+        static async findActiveByUid(userId, options = {}){
+            const { id: statusId = null } = await cartStatuses.findByMid('active') || {};
+
+            if (!statusId) return null;
+
+            return this.findOne({
+                ...options,
+                where: { statusId, userId },
+                order: [['lastInteraction', 'DESC']]
+            });
+        }
+
+        cartUsed(){
+            this.lastInteraction = new Date();
+
+            return this.save();
         }
 
         getItems(cartItems){
@@ -30,10 +66,10 @@ module.exports = (sequelize, cartStatuses, users) => {
                     }
                 });
 
-                return items.map(({product: { cost: each, name, pid: productId, thumbnail }, pid: id, quantity, createdAt: added}) => ({
+                return items.map(({product: { cost: each, name, pid: productId, thumbnail }, pid: itemId, quantity, createdAt: added}) => ({
                     added,
                     each,
-                    id,
+                    itemId,
                     name,
                     productId,
                     quantity,
@@ -70,6 +106,11 @@ module.exports = (sequelize, cartStatuses, users) => {
             autoIncrement: true,
             primaryKey: true,
             type: Sequelize.INTEGER
+        },
+        lastInteraction: {
+            allowNull: true,
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.NOW
         },
         pid: {
             allowNull: false,

@@ -2,7 +2,7 @@ module.exports = async (req, res) => {
     const { cart } = req;
     
     let formattedCart = {
-        cart: null,
+        cartId: null,
         message: 'No active cart'
     }
 
@@ -11,11 +11,9 @@ module.exports = async (req, res) => {
         const total = await cart.getTotals();
 
         formattedCart = {
-            cart: {
-                items,
-                pid: cart.pid,
-                total
-            }
+            cartId: cart.pid,
+            items,
+            total
         }
     }
 

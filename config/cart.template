@@ -1,0 +1,5 @@
+module.exports = {
+    cartHeader: '',
+    secret: '',
+    tokenExpire: 1000 * 60 * 60 * 24 * D // Replace D, where D is the amount of days the token will be valid
+}

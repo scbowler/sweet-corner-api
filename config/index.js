@@ -1,5 +1,5 @@
 module.exports = {
-    cookies: require('./cookies'),
+    cart: require('./cart'),
     db: require('./db'),
     jwt: require('./jwt')
 }

@@ -1,6 +1,7 @@
 const { carts, cartItems, cartStatuses, products } = require(__basedir + '/db/models');
 const validation = require(__basedir + '/helpers/validation');
 const { StatusError } = require(__basedir + '/helpers/error_handling');
+const { createCartToken } = require('./helpers');
 
 module.exports = async (req, res) => {
     try {
@@ -31,7 +32,7 @@ module.exports = async (req, res) => {
             cart.getTotals = cart.getTotals(cartItems);
 
             if(!user){
-                res.cookie('sc_cart_pid', cart.pid);
+                req.cartToken = createCartToken(cart.id);
             }
         } else {
             cartItem = await cartItems.findOne({
@@ -56,11 +57,15 @@ module.exports = async (req, res) => {
 
         await cartItem.save();
 
+        await cart.cartUsed();
+
+        const item = await cartItems.findByPkFormatted(cartItem.id, req);
         const total = await cart.getTotals();
 
         res.send({
             cartId: cart.pid,
-            itemId: cartItem.pid,
+            cartToken: req.cartToken,
+            item,
             message: `${quantity} ${name} cupcake${quantity > 1 ? 's' : ''} added to cart`,
             total
         });
