@@ -44,20 +44,25 @@ module.exports = async (req, res, next) => {
             message = `${addRemove} ${Math.abs(quantity)} ${item.product.name} cupcake${quantity > 1 || quantity < -1 ? 's' : ''} ${toFrom} cart`;
         }
 
+        let formattedItem = null;
         
 
         if(item.quantity > 0){
             await item.save();
+
+            formattedItem = await cartItems.findByPkFormatted(item.id, req);
         } else {
             message = `Removed all ${item.product.name} cupcake${quantity > 1 || quantity < -1 ? 's' : ''} from cart`;
             await item.destroy();
         }
 
+        await cart.cartUsed()
+
         const total = await cart.getTotals();
 
         res.send({
             cartId: cart.pid,
-            itemId,
+            item: formattedItem,
             message,
             total
         });

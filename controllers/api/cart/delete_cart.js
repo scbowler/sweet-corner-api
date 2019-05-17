@@ -4,7 +4,7 @@ const validation = require(__basedir + '/helpers/validation');
 const { StatusError } = require(__basedir + '/helpers/error_handling');
 
 module.exports = async (req, res, next) => {
-    const { cart, cookies: { sc_cart_pid }, params: { cartId }, user } = req;
+    const { cart, params: { cartId }, user } = req;
 
     try {
         if(!validation.pid(cartId)){
@@ -29,10 +29,6 @@ module.exports = async (req, res, next) => {
         if(!cartToDelete){
             throw new StatusError(401, `Not authorized to delete cart with ID of: ${cartId}`);
         }
-
-        if (sc_cart_pid === cartToDelete.pid){
-            res.clearCookie('sc_cart_pid');
-        }
         
         const itemsToDelete = await cartItems.findAll({
             attributes: ['id'],
@@ -56,6 +52,7 @@ module.exports = async (req, res, next) => {
         await cartToDelete.destroy();
     
         res.send({
+            cartId: null,
             message: `Cart (${cartId}) deleted`
         });
     } catch(err){

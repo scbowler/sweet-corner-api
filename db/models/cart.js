@@ -18,7 +18,7 @@ module.exports = (sequelize, cartStatuses, users) => {
 
             return this.findOne({
                 ...options,
-                order: [['updatedAt', 'DESC']],
+                order: [['lastInteraction', 'DESC']],
                 where: { id, statusId, userId: null }
             });
         }
@@ -29,7 +29,7 @@ module.exports = (sequelize, cartStatuses, users) => {
 
             return this.findOne({
                 ...options,
-                order: [['updatedAt', 'DESC']],
+                order: [['lastInteraction', 'DESC']],
                 where: { pid, statusId, userId: null }
             });
         }
@@ -41,7 +41,7 @@ module.exports = (sequelize, cartStatuses, users) => {
             return this.findOne({
                 ...options,
                 where: { statusId, userId },
-                order: [['updatedAt', 'DESC']]
+                order: [['lastInteraction', 'DESC']]
             });
         }
 
@@ -66,10 +66,10 @@ module.exports = (sequelize, cartStatuses, users) => {
                     }
                 });
 
-                return items.map(({product: { cost: each, name, pid: productId, thumbnail }, pid: id, quantity, createdAt: added}) => ({
+                return items.map(({product: { cost: each, name, pid: productId, thumbnail }, pid: itemId, quantity, createdAt: added}) => ({
                     added,
                     each,
-                    id,
+                    itemId,
                     name,
                     productId,
                     quantity,

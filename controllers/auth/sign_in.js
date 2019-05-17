@@ -1,26 +1,29 @@
+const jwt = require('jwt-simple');
 const { cartStatuses, carts } = require(__basedir + '/db/models');
 const { tokenForUser, userDataToSend } = require('./authentication');
+const { cartHeader, secret, tokenExpire } = require(__basedir + '/config').cart;
 
 module.exports = async (req, res) => {
-    const { user, cookies: { sc_cart_pid = null } } = req;
+    const { user, headers: { [cartHeader]: cartToken } } = req;
 
     try {
-        if (sc_cart_pid) {
-            const { id: statusId = null } = await cartStatuses.findByMid('active') || {};
+        if (cartToken) {
+            try {
+                const { cartId, created } = jwt.decode(cartToken, secret);
 
-            const cart = await carts.findOne({
-                where: {
-                    pid: sc_cart_pid,
-                    statusId
+                const now = new Date().getTime();
+
+                if (created + tokenExpire < now) {
+                    throw new StatusError(422, 'Cart token expired');
                 }
-            });
 
-            if (cart) {
-                cart.userId = user.id;
-                await cart.save();
+                const cart = await carts.findActiveById(cartId);
 
-                res.clearCookie('sc_cart_pid');
-            }
+                if (cart) {
+                    cart.userId = user.id;
+                    await cart.save();
+                }
+            } catch(err){}
         }
 
         res.send({

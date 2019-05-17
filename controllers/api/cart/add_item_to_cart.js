@@ -59,12 +59,13 @@ module.exports = async (req, res) => {
 
         await cart.cartUsed();
 
+        const item = await cartItems.findByPkFormatted(cartItem.id, req);
         const total = await cart.getTotals();
 
         res.send({
             cartId: cart.pid,
             cartToken: req.cartToken,
-            itemId: cartItem.pid,
+            item,
             message: `${quantity} ${name} cupcake${quantity > 1 ? 's' : ''} added to cart`,
             total
         });

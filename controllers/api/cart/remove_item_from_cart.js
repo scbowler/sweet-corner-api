@@ -34,6 +34,8 @@ module.exports = async (req, res, next) => {
 
         await item.destroy();
 
+        await cart.cartUsed();
+
         const total = await cart.getTotals();
 
         res.send({
