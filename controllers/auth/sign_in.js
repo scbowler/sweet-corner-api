@@ -1,5 +1,5 @@
 const jwt = require('jwt-simple');
-const { cartStatuses, carts } = require(__basedir + '/db/models');
+const { carts } = require(__basedir + '/db/models');
 const { tokenForUser, userDataToSend } = require('./authentication');
 const { cartHeader, secret, tokenExpire } = require(__basedir + '/config').cart;
 

@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const bcrypt = require('bcryptjs');
-const { findByMid } = require('./interfaces');
+const { findByPid } = require('./interfaces');
 
 module.exports = (db, roles) => {
     const Users = db.define('users', {
@@ -63,7 +63,7 @@ module.exports = (db, roles) => {
 
     Users.belongsTo(roles, { as: 'role', allowNull: false });
 
-    Users.findByMid = findByMid;
+    Users.findByPid = findByPid;
 
     // Users.sync({force: true});
 

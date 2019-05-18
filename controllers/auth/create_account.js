@@ -1,10 +1,13 @@
+const jwt = require('jwt-simple');
 const { tokenForUser, userDataToSend } = require('./authentication');
-const { users, userRoles } = require(__basedir + '/db/models');
+const { carts, users, userRoles } = require(__basedir + '/db/models');
 const validation = require(__basedir + '/helpers/validation');
 const { StatusError } = require(__basedir + '/helpers/error_handling');
+const { cartHeader, secret, tokenExpire } = require(__basedir + '/config').cart;
 
 module.exports = async (req, res, next) => {
     const { email, firstName, lastName, password } = req.body;
+    const { headers: { [cartHeader]: cartToken } } = req;
     const errors = [];
 
     try {
@@ -50,6 +53,25 @@ module.exports = async (req, res, next) => {
             user = await newUser.save();
         } catch (err) {
             throw new StatusError(500, 'Unable to create new user');
+        }
+
+        if (cartToken) {
+            try {
+                const { cartId, created } = jwt.decode(cartToken, secret);
+
+                const now = new Date().getTime();
+
+                if (created + tokenExpire < now) {
+                    throw new StatusError(422, 'Cart token expired');
+                }
+
+                const cart = await carts.findActiveById(cartId);
+
+                if (cart) {
+                    cart.userId = user.id;
+                    await cart.save();
+                }
+            } catch (err) { }
         }
 
         res.send({
