@@ -2,22 +2,17 @@ const { cartItems, cartStatuses, orderItems, orderStatuses, orders } = require(_
 const { StatusError } = require(__basedir + '/helpers/error_handling');
 
 module.exports = async (req, res, next) => {
-
-
-    return res.send({
-        message: 'Create guest and create order coming soon!'
-    });
     try {
-        const { cart, user } = req;
+        const { cart, guest, user } = req;
 
-        if (!cart) {
+        if(!cart){
             throw new StatusError(422, 'No active cart for checkout');
         }
 
         const cItems = await cart.getItems(req, true);
         const cartTotals = await cart.getTotals();
 
-        if (!cItems || !cItems.length) {
+        if(!cItems || !cItems.length){
             throw new StatusError(422, 'No items in cart, unable to complete order');
         }
 
@@ -25,7 +20,7 @@ module.exports = async (req, res, next) => {
             attributes: ['id']
         }) || {};
 
-        if (!pendingOrderId) {
+        if(!pendingOrderId){
             throw new StatusError(500, 'Error finding pending order status ID', false);
         }
 
@@ -33,15 +28,15 @@ module.exports = async (req, res, next) => {
             attributes: ['id']
         }) || {};
 
-        if (!closedCartId) {
+        if(!closedCartId){
             throw new StatusError(500, 'Error finding closed cart status ID', false);
         }
 
         let order = await orders.findByCid(cart.id, {
-            attributes: ['pid']
+            attributes: [ 'pid' ]
         });
 
-        if (order) {
+        if(order){
             throw new StatusError(422, [
                 'An order has already been created for this cart',
                 'The oder ID is at the last index of this errors array',
@@ -49,13 +44,17 @@ module.exports = async (req, res, next) => {
             ]);
         }
 
-        order = await orders.create({
+        const newOrder = {
             itemCount: cartTotals.items,
             total: cartTotals.cost,
             cartId: cart.id,
-            statusId: pendingOrderId,
-            userId: user.id
-        });
+            statusId: pendingOrderId
+        };
+
+        if(user) newOrder.userId = user.id;
+        else newOrder.guestId = guest.id;
+        
+        order = await orders.create(newOrder);
 
         await Promise.all(cItems.map(item => orderItems.create({
             each: item.each,
@@ -80,9 +79,9 @@ module.exports = async (req, res, next) => {
             message: 'Your order has been placed',
             id: order.pid
         });
-    } catch (err) {
-        err.default = 'Error creating new user order';
-
+    } catch(err){
+        err.default = 'Error creating new order';
+        
         next(err);
     }
 }

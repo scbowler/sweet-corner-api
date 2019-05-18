@@ -1,6 +1,7 @@
 const router = require('express').Router();
-const { getAllUserOrders, getUserOrderDetails, newGuestOrder, newUserOrder } = require(__basedir + '/controllers/api/orders');
+const { getAllUserOrders, getOrderDetails, newOrder } = require(__basedir + '/controllers/api/orders');
 const { requireBasicAuth, withCart } = require(__basedir + '/routes/setup');
+const { findGuest, findOrCreateGuest } = require(__basedir + '/middleware/guest');
 
 /*
     /api/orders routes
@@ -8,10 +9,12 @@ const { requireBasicAuth, withCart } = require(__basedir + '/routes/setup');
 
 router.get('/', requireBasicAuth, getAllUserOrders);
 
-router.get('/:orderId', requireBasicAuth, getUserOrderDetails);
+router.get('/:orderId', requireBasicAuth, getOrderDetails);
 
-router.post('/', requireBasicAuth, withCart, newUserOrder);
+router.post('/', requireBasicAuth, withCart, newOrder);
 
-router.post('/guest', newGuestOrder);
+router.post('/guest', findOrCreateGuest, withCart, newOrder);
+
+router.post('/guest/:orderId', findGuest, getOrderDetails);
 
 module.exports = router;

@@ -5,19 +5,30 @@ const { imageUrls } = require(__basedir + '/helpers');
 
 module.exports = async (req, res, next) => {
     try {
-        const { params: { orderId }, user } = req;
+        const { guest, params: { orderId }, user } = req;
 
         if(!validation.pid(orderId)){
             throw new StatusError(422, 'Invalid order ID format');
         }
 
-        const order = await orders.findByPidAndUid(orderId, user.id, {
+        const options = {
             attributes: ['id', 'itemCount', 'pid', 'total', 'createdAt'],
             include: {
                 association: 'status',
                 attributes: ['name']
+            },
+            where: {
+                pid: orderId
             }
-        });
+        }
+
+        if(user) {
+            options.where.userId = user.id;
+        } else {
+            options.where.guestId = guest.id
+        }
+
+        const order = await orders.findOne(options);
 
         if(!order){
             throw new StatusError(406, `No order found with an ID of: ${orderId}`);
