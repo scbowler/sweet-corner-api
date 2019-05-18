@@ -3,6 +3,7 @@ module.exports = {
     deleteActiveCart: require('./delete_active_cart'),
     deleteCart: require('./delete_cart'),
     getCurrent: require('./get_current_cart'),
+    getTotals: require('./get_totals'),
     removeItem: require('./remove_item_from_cart'),
     updateItem: require('./update_item_quantity')
 }
