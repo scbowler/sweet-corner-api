@@ -2,13 +2,8 @@ const { cartItems, cartStatuses, orderItems, orderStatuses, orders } = require(_
 const { StatusError } = require(__basedir + '/helpers/error_handling');
 
 module.exports = async (req, res, next) => {
-
-
-    return res.send({
-        message: 'Create guest and create order coming soon!'
-    });
     try {
-        const { cart, user } = req;
+        const { cart, guest } = req;
 
         if (!cart) {
             throw new StatusError(422, 'No active cart for checkout');
@@ -54,7 +49,7 @@ module.exports = async (req, res, next) => {
             total: cartTotals.cost,
             cartId: cart.id,
             statusId: pendingOrderId,
-            userId: user.id
+            guestId: guest.id
         });
 
         await Promise.all(cItems.map(item => orderItems.create({
