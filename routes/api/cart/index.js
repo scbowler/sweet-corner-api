@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { notFound } = require(__basedir + '/controllers/errors');
-const { addItem, deleteActiveCart, deleteCart, getCurrent, removeItem, updateItem } = require(__basedir + '/controllers/api/cart');
+const { addItem, deleteActiveCart, deleteCart, getCurrent, getTotals, removeItem, updateItem } = require(__basedir + '/controllers/api/cart');
 
 /*
     /api/cart routes
@@ -9,6 +9,8 @@ const { addItem, deleteActiveCart, deleteCart, getCurrent, removeItem, updateIte
 router.get('/', getCurrent);
 
 router.delete('/', deleteActiveCart);
+
+router.get('/totals', getTotals);
 
 router.delete('/:cartId', deleteCart);
 
