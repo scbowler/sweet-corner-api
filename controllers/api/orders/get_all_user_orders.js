@@ -16,8 +16,9 @@ module.exports = async (req, res, next) => {
         let formattedOrders = [];
 
         if(userOrders.length){
-            formattedOrders = userOrders.map(({ status, ...order }) => ({
-                ...order.dataValues,
+            formattedOrders = userOrders.map(({ dataValues: {status, pid: id, ...order }}) => ({
+                ...order,
+                id,
                 status: status.name
             }));
         }

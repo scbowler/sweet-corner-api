@@ -15,6 +15,13 @@ module.exports = (sequelize, carts, guests, orderStatuses, users) => {
             return findByPid.apply(this, arguments);
         }
 
+        static findByPidAndUid(pid, userId, options = {}){
+            return this.findOne({
+                ...options,
+                where: { pid, userId }
+            });
+        }
+
         static findByUid() {
             return findByUid.apply(this, arguments);
         }

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { getAllUserOrders, newUserOrder } = require(__basedir + '/controllers/api/orders');
+const { getAllUserOrders, getUserOrderDetails, newUserOrder } = require(__basedir + '/controllers/api/orders');
 const { requireBasicAuth, withCart } = require(__basedir + '/routes/setup');
 
 /*
@@ -7,6 +7,8 @@ const { requireBasicAuth, withCart } = require(__basedir + '/routes/setup');
 */
 
 router.get('/', requireBasicAuth, getAllUserOrders);
+
+router.get('/:orderId', requireBasicAuth, getUserOrderDetails);
 
 router.post('/', requireBasicAuth, withCart, newUserOrder);
 

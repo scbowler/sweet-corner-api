@@ -73,7 +73,7 @@ module.exports = async (req, res, next) => {
 
         res.send({
             message: 'Your order has been placed',
-            orderId: order.pid
+            id: order.pid
         });
     } catch(err){
         err.default = 'Error creating new user order';
