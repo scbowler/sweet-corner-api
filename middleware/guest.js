@@ -2,6 +2,26 @@ const { guests, users } = require(__basedir + '/db/models');
 const validation = require(__basedir + '/helpers/validation');
 const { StatusError } = require(__basedir + '/helpers/error_handling');
 
+exports.findGuest = async (req, res, next) => {
+    try {
+        const { email } = req.body;
+
+        if (!email) errors.push('No email address provided');
+        else if (!validation.email(email)) errors.push('Invalid email address provided');
+
+        const guest = await guests.findOne({ where: { email } });
+
+        if (!guest) throw new StatusError(422, 'No information found with provided email');
+
+        req.guest = guest;
+        next();
+    } catch(err) {
+        err.default = 'Error finding information with provided email';
+
+        next(err);
+    }
+}
+
 exports.findOrCreateGuest = async (req, res, next) => {
     const { email, firstName, lastName } = req.body;
     const errors = [];
