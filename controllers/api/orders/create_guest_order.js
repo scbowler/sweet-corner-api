@@ -5,7 +5,7 @@ module.exports = async (req, res, next) => {
 
 
     return res.send({
-        message: 'Create guest and create order'
+        message: 'Create guest and create order coming soon!'
     });
     try {
         const { cart, user } = req;
