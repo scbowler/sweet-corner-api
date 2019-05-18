@@ -55,25 +55,6 @@ module.exports = async (req, res, next) => {
             throw new StatusError(500, 'Unable to create new user');
         }
 
-        if (cartToken) {
-            try {
-                const { cartId, created } = jwt.decode(cartToken, secret);
-
-                const now = new Date().getTime();
-
-                if (created + tokenExpire < now) {
-                    throw new StatusError(422, 'Cart token expired');
-                }
-
-                const cart = await carts.findActiveById(cartId);
-
-                if (cart) {
-                    cart.userId = user.id;
-                    await cart.save();
-                }
-            } catch (err) { }
-        }
-
         res.send({
             token: tokenForUser(user),
             user: userDataToSend(user)

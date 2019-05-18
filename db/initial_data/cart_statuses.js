@@ -12,6 +12,11 @@ const defaultStatuses = [
         name: 'Active'
     },
     {
+        description: 'Cart is no longer the currently active cart, but can be reactivated',
+        mid: 'inactive',
+        name: 'Inactive'
+    },
+    {
         description: 'The order has been completed and the cart is closed',
         mid: 'closed',
         name: 'Closed'

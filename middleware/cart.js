@@ -1,5 +1,6 @@
 const jwt = require('jwt-simple');
-const { carts, cartItems } = require(__basedir + '/db/models');
+const { Op } = require('sequelize');
+const { carts, cartItems, cartStatuses } = require(__basedir + '/db/models');
 const { StatusError } = require(__basedir + '/helpers/error_handling');
 const { secret, tokenExpire } = require(__basedir + '/config').cart;
 
@@ -28,6 +29,51 @@ exports.withCart = cartHeader => {
             err.default = 'Error while retrieving cart data';
 
             next(err);
+        }
+    }
+}
+
+exports.transferCart = cartHeader => {
+    if (!cartHeader) throw new Error('Missing cart header key, check cart middleware config')
+    return async (req, res, next) => {
+        try {
+            const { headers: { [cartHeader]: cartToken }, user } = req;
+            let cart = null;
+
+            if (cartToken) {
+                
+                cart = await getCartFromToken(cartToken);
+
+                if (cart) {
+                    const [activeStatus, inactiveStatus] = await cartStatuses.findAll({
+                        attributes: ['id'],
+                        where: {
+                            mid: {
+                                [Op.or]: ['active', 'inactive']
+                            }
+                        },
+                        order: [['mid']]
+                    });
+
+                    await carts.update({
+                        statusId: inactiveStatus.id
+                    }, {
+                        where: {
+                            statusId: activeStatus.id,
+                            userId: user.id,
+                        }
+                    });
+
+                    await cart.update({
+                        lastInteraction: new Date(),
+                        userId: user.id
+                    });
+                }
+            }
+
+            next();
+        } catch (err) { 
+            next();
         }
     }
 }
