@@ -29,10 +29,24 @@ module.exports = async (req, res, next) => {
             throw new StatusError(404, `No product found with an ID of ${product_id}`);
         }
 
-        product.image.dataValues.url = imageUrls(req, product.image);
-        product.thumbnail.dataValues.url = imageUrls(req, product.thumbnail);
+        const { pid, ...formattedProduct } = product.dataValues;
+        const { pid: imagePid, ...image } = product.image.dataValues;
+        const { pid: thumbnailPid, ...thumbnail } = product.thumbnail.dataValues;
 
-        res.send({ product });
+        res.send({
+            id: pid,
+            ...formattedProduct,
+            image: {
+                id: imagePid,
+                ...image,
+                url: imageUrls(req, image)
+            },
+            thumbnail: {
+                id: thumbnailPid,
+                ...thumbnail,
+                url: imageUrls(req, thumbnail)
+            }
+        });
     } catch(err){
         err.default = `Error retrieving product with id of: ${product_id}`;
         next(err);

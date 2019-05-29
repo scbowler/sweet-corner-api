@@ -8,8 +8,7 @@ module.exports = async (req, res, next) => {
             include: {
                 association: 'thumbnail',
                 attributes: ['altText', 'file', 'pid', 'type']
-            },
-            limit: 2
+            }
         });
 
         let formattedProducts = [];
