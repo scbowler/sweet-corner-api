@@ -79,3 +79,28 @@ http://api.sc.lfzprototypes.com
     }
 }
 ```
+
+## User (Auth) Endpoints
+
+### Get all products
+- **Method:** `POST`
+- **Path:** `/auth/create-account`
+- **Data:**
+    ```JAVASCRIPT
+    {
+        email: 'example@email.com', // Must be a valid email address
+        firstName: 'Jane',
+        lastName: 'Doe',
+        password: 'Qwerty1!' // Must have an uppercase letter, lowercase letter, number, special character, and be at least 8 characters long
+    }
+    ```
+- **Query:** `none`
+- **Headers:**
+    ```JAVASCRIPT
+    {
+        "X-Cart-Token": "cart token goes here" // Optional, see "additional info" below
+    }
+    ```
+- **Additional Info:**
+    > If the user creates a cart before creating an account, send the cart token with the create account request and the cart will be transferred to the newly created account.
+- **Response:**
