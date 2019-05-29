@@ -80,9 +80,11 @@ http://api.sc.lfzprototypes.com
 }
 ```
 
+## Shopping Cart Endpoints
+
 ## User (Auth) Endpoints
 
-### Get all products
+### Create new User account
 - **Method:** `POST`
 - **Path:** `/auth/create-account`
 - **Data:**
@@ -102,5 +104,71 @@ http://api.sc.lfzprototypes.com
     }
     ```
 - **Additional Info:**
-    > If the user creates a cart before creating an account, send the cart token with the create account request and the cart will be transferred to the newly created account.
+    > If the user creates a cart before creating an account, send the cart token in the headers with the create account request and the cart will be transferred to the newly created account.
 - **Response:**
+    ```JAVASCRIPT
+    {
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjMsInRzIjoxNTU5MTU5ODk0MDUzfQ.SZNcSeB8ZMABdLUX94dVl6XyomjOj-pgelSWTeQXLQI",
+        "user": {
+            "name": "Jane Doe",
+            "email": "example@email.com",
+            "pid": "1c2158a8-c5fb-4a61-8e10-cdc02a48635b"
+        }
+    }
+    ```
+
+### User sign in
+- **Method:** `POST`
+- **Path:** `/api/sign-in`
+- **Data:**
+    ```JAVASCRIPT
+    {
+        email: 'example@email.com',
+        password: 'Qwerty1!'
+    }
+    ```
+- **Query:** `none`
+- **Headers:**
+    ```JAVASCRIPT
+    {
+        "X-Cart-Token": "cart token goes here" // Optional, see "additional info" below
+    }
+    ```
+- **Additional Info:**
+    > If the user creates a cart before signing in, send the cart token in the headers with the create account request and the cart will be transferred to the user's account.
+- **Response:**
+    ```JAVASCRIPT
+    {
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjMsInRzIjoxNTU5MTYwNDUyNjgwfQ.c04btYz8m4fNa4UGkSwGHxd-mnrXNzCbMfpYFHWHB8U",
+        "user": {
+            "name": "Jane Doe",
+            "email": "example@email.com",
+            "pid": "1c2158a8-c5fb-4a61-8e10-cdc02a48635b"
+        }
+    }
+    ```
+
+### User JWT sign in
+- **Method:** `GET`
+- **Path:** `/api/sign-in`
+- **Data:** `none`
+- **Query:** `none`
+- **Headers:**
+    ```JAVASCRIPT
+    {
+        "Authorization": "User auth token" // Required, see "additional info" below
+    }
+    ```
+- **Additional Info:**
+    - This endpoint is used for persistent login or to quickly verify auth from the server. When the user creates an account or signs in they will be given an auth token, the token should be stored in local storage then sent along with any requests that allow/require the "Authorization" header.
+    - **NOTE:** Auth tokens expire after approx 2 weeks
+- **Response:**
+    ```JAVASCRIPT
+    {
+        "user": {
+            "name": "Jane Doe",
+            "email": "example@email.com",
+            "pid": "1c2158a8-c5fb-4a61-8e10-cdc02a48635b"
+        }
+    }
+    ```
