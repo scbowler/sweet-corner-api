@@ -7,8 +7,6 @@ const { requireBasicAuth, requireSignIn } = require('../setup.js');
     /auth routes
 */
 
-router.get('/test', test);
-
 router.post('/create-account', createAccount);
 
 router.post('/sign-in', requireSignIn, signIn);
