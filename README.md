@@ -82,6 +82,198 @@ http://api.sc.lfzprototypes.com
 
 ## Shopping Cart Endpoints
 
+### Add item to cart
+- **Method:** `POST`
+- **Path:** `/api/cart/items/:product_id`
+- **Data:**
+    ```JAVASCRIPT
+    {
+        quantity: 2 // Optional, will default to 1 if no quantity given
+    }
+    ```
+- **Query:** `none`
+- **Headers:**
+    ```JAVASCRIPT
+    {
+        "Authorization": "user auth token" // Optional, see additional info below
+        "X-Cart-Token": "cart token" // Optional, see additional info below
+    }
+    ```
+- **Additional Info:**
+    - If the "Authorization" header is sent, the item will be added to the users currently active cart. If the user does not have an active cart, a new cart will be created and become the active cart.
+    - If the "X-Cart-Token" header is sent, the item will be added to the cart that belongs to that token.
+    - If no headers are sent a new cart will be created and the cart token will be sent in the response. All subsequent requests should use the provided cart token if not logged in, this will ensure that all user items will be added to the same cart. 
+    - If the item already exists in the currently active cart, the quantity of that item will be adjusted based on the quantity sent. Quantity defaults to 1 if not sent.
+    - If both the auth and cart headers are sent, the auth header will take precedence. Once the user signs in or registers, the cart will be transferred to the user so the cart token is no longer needed and becomes invalid.
+- **Response:**
+    ```JAVASCRIPT
+    {
+        "cartId": "eb219d35-9a1f-492f-8b83-eab8660f3d74",
+        "cartToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjYXJ0SWQiOjE0LCJjcmVhdGVkIjoxNTU5MTc3MTU4NzU3fQ.ZdlAU9exSx-JgwiBqCu3TGt9fintMmNBvKOS9ou9u9w",
+        "item": {
+            "added": "2019-05-30T00:45:58.000Z",
+            "each": 200,
+            "itemId": "2edb2c46-2053-4c9b-8e3b-277bd2fba7e6",
+            "name": "Purple Dream",
+            "productId": "6f33d1ac-3750-4888-94b5-d4c5b520fc32",
+            "quantity": 2,
+            "thumbnail": {
+                "altText": "Berry cupcake",
+                "url": "http://localhost:9000/images/undefined/undefined"
+            },
+            "total": 400
+        },
+        "message": "2 Purple Dream cupcakes added to cart",
+        "total": {
+            "cost": 400,
+            "items": 2
+        }
+    }
+    ```
+
+### Get shopping cart
+- **Method:** `GET`
+- **Path:** `/api/cart`
+- **Data:** `none`
+- **Query:** `none`
+- **Headers:**
+    ```JAVASCRIPT
+    {
+        "Authorization": "user auth token" // Optional, see additional info below
+        "X-Cart-Token": "cart token" // Optional, see additional info below
+    }
+    ```
+- **Additional Info:**
+    - You must send either the "Authorization" or "X-Cart-Token" header.
+    - If the "Authorization" header is sent, you will get the user's currently active cart.
+    - If the "X-Cart-Token" header is sent, you will get the cart that is associated with that token.
+    - If no cart is found from the provided token, auth or cart, or if no header is provided you will get the response noted below under **"No Cart Response"**
+- **Response:**
+    ```JAVASCRIPT
+    {
+        "cartId": "eb219d35-9a1f-492f-8b83-eab8660f3d74",
+        "items": [
+            {
+                "added": "2019-05-30T00:45:58.000Z",
+                "each": 200,
+                "itemId": "2edb2c46-2053-4c9b-8e3b-277bd2fba7e6",
+                "name": "Purple Dream",
+                "productId": "6f33d1ac-3750-4888-94b5-d4c5b520fc32",
+                "quantity": 2,
+                "thumbnail": {
+                    "altText": "Berry cupcake",
+                    "url": "http://localhost:9000/images/thumbnails/cupcake_sq_2.jpg"
+                },
+                "total": 400
+            }
+        ],
+        "total": {
+            "cost": 400,
+            "items": 2
+        }
+    }
+    ```
+- **No Cart Response**
+    ```JAVASCRIPT
+    {
+        "cartId": null,
+        "message": "No active cart"
+    }
+    ```
+
+### Update shopping cart item's quantity
+- **Method:** `PATCH`
+- **Path:** `/api/cart/item/:item_id`
+- **Data:**
+    ```JAVASCRIPT
+        {
+            quantity: 2 // Optional, Defaults to 1 if no value sent
+        }
+    ```
+- **Query:** `none`
+- **Headers:**
+    ```JAVASCRIPT
+    {
+        "Authorization": "user auth token" // Optional, see additional info below
+        "X-Cart-Token": "cart token" // Optional, see additional info below
+    }
+    ```
+- **Additional Info:**
+    - You must send either the "Authorization" or "X-Cart-Token" header.
+    - The items quantity will increase or decrease by the "quantity" received.
+    - To decrease an items quantity send a negative number.
+    - If the items quantity is less than 1 the item will be removed from the cart.
+- **Response:**
+    ```JAVASCRIPT
+    {
+        "cartId": "eb219d35-9a1f-492f-8b83-eab8660f3d74",
+        "item": {
+            "added": "2019-05-30T00:45:58.000Z",
+            "each": 200,
+            "itemId": "2edb2c46-2053-4c9b-8e3b-277bd2fba7e6",
+            "name": "Purple Dream",
+            "productId": "6f33d1ac-3750-4888-94b5-d4c5b520fc32",
+            "quantity": 4,
+            "thumbnail": {
+                "altText": "Berry cupcake",
+                "url": "http://localhost:9000/images/undefined/undefined"
+            },
+            "total": 800
+        },
+        "message": "Added 2 Purple Dream cupcakes to cart",
+        "total": {
+            "cost": 800,
+            "items": 4
+        }
+    }
+    ```
+
+### Set shopping cart item's quantity
+- **Method:** `PUT`
+- **Path:** `/api/cart/item/:item_id`
+- **Data:**
+    ```JAVASCRIPT
+        {
+            quantity: 3 // Optional, Defaults to 1 if no value sent
+        }
+    ```
+- **Query:** `none`
+- **Headers:**
+    ```JAVASCRIPT
+    {
+        "Authorization": "user auth token" // Optional, see additional info below
+        "X-Cart-Token": "cart token" // Optional, see additional info below
+    }
+    ```
+- **Additional Info:**
+    - You must send either the "Authorization" or "X-Cart-Token" header.
+    - The items quantity will be set the the "quantity" received.
+    - If the items quantity is set to less than 1 the item will be removed from the cart.
+- **Response:**
+    ```JAVASCRIPT
+    {
+        "cartId": "eb219d35-9a1f-492f-8b83-eab8660f3d74",
+        "item": {
+            "added": "2019-05-30T00:45:58.000Z",
+            "each": 200,
+            "itemId": "2edb2c46-2053-4c9b-8e3b-277bd2fba7e6",
+            "name": "Purple Dream",
+            "productId": "6f33d1ac-3750-4888-94b5-d4c5b520fc32",
+            "quantity": 3,
+            "thumbnail": {
+                "altText": "Berry cupcake",
+                "url": "http://localhost:9000/images/undefined/undefined"
+            },
+            "total": 600
+        },
+        "message": "Set Purple Dream cupcakes quantity to 3",
+        "total": {
+            "cost": 600,
+            "items": 3
+        }
+    }
+    ```
+
 ## User (Auth) Endpoints
 
 ### Create new User account
@@ -104,7 +296,7 @@ http://api.sc.lfzprototypes.com
     }
     ```
 - **Additional Info:**
-    > If the user creates a cart before creating an account, send the cart token in the headers with the create account request and the cart will be transferred to the newly created account.
+    - If the user creates a cart before creating an account, send the cart token in the headers with the create account request and the cart will be transferred to the newly created account.
 - **Response:**
     ```JAVASCRIPT
     {
@@ -135,7 +327,7 @@ http://api.sc.lfzprototypes.com
     }
     ```
 - **Additional Info:**
-    > If the user creates a cart before signing in, send the cart token in the headers with the create account request and the cart will be transferred to the user's account.
+    - If the user creates a cart before signing in, send the cart token in the headers with the create account request and the cart will be transferred to the user's account.
 - **Response:**
     ```JAVASCRIPT
     {
