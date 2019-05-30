@@ -7,8 +7,12 @@ module.exports = async (req, res, next) => {
     const { cart, params: { cartId }, user } = req;
 
     try {
+        if(!user){
+            throw new StatusError(401, 'Must be signed in');
+        }
+
         if(!validation.pid(cartId)){
-            throw new StatusError('Invalid cart ID format');
+            throw new StatusError(422, 'Invalid cart ID format');
         }
 
         let cartToDelete = null;
@@ -19,9 +23,7 @@ module.exports = async (req, res, next) => {
             cartToDelete = await carts.findOne({
                 where: {
                     pid: cartId,
-                    userId: {
-                        [Op.or]: [null, user && user.id]
-                    }
+                    userId: user.id
                 }
             });
         }
@@ -52,8 +54,8 @@ module.exports = async (req, res, next) => {
         await cartToDelete.destroy();
     
         res.send({
-            cartId: null,
-            message: `Cart (${cartId}) deleted`
+            deletedId: cartId,
+            message: `Cart deleted`
         });
     } catch(err){
         err.default = `Error deleting cart with ID of: ${cartId}`;

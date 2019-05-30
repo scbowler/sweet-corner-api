@@ -181,6 +181,30 @@ http://api.sc.lfzprototypes.com
     }
     ```
 
+### Get shopping cart totals
+- **Method:** `GET`
+- **Path:** `/api/cart/totals`
+- **Data:** `none`
+- **Query:** `none`
+- **Headers:**
+    ```JAVASCRIPT
+    {
+        "Authorization": "user auth token" // Optional, see additional info below
+        "X-Cart-Token": "cart token" // Optional, see additional info below
+    }
+    ```
+- **Additional Info:**
+    - You must send either the "Authorization" or "X-Cart-Token" header.
+- **Response:**
+    ```JAVASCRIPT
+    {
+        "total": {
+            "cost": 3900,
+            "items": 8
+        }
+    }
+    ```
+
 ### Update shopping cart item's quantity
 - **Method:** `PATCH`
 - **Path:** `/api/cart/item/:item_id`
@@ -271,6 +295,79 @@ http://api.sc.lfzprototypes.com
             "cost": 600,
             "items": 3
         }
+    }
+    ```
+
+### Delete item from cart
+- **Method:** `DELETE`
+- **Path:** `/api/cart/item/:item_id`
+- **Data:** `none`
+- **Query:** `none`
+- **Headers:**
+    ```JAVASCRIPT
+    {
+        "Authorization": "user auth token" // Optional, see additional info below
+        "X-Cart-Token": "cart token" // Optional, see additional info below
+    }
+    ```
+- **Additional Info:**
+    - You must send either the "Authorization" or "X-Cart-Token" header.
+    - Item will be completely removed from cart
+- **Response:**
+    ```JAVASCRIPT
+    {
+        "cartId": "eb219d35-9a1f-492f-8b83-eab8660f3d74",
+        "message": "Removed all Purple Dream items from cart",
+        "total": {
+            "cost": 1200,
+            "items": 2
+        }
+    }
+    ```
+
+### Delete current cart
+- **Method:** `DELETE`
+- **Path:** `/api/cart`
+- **Data:** `none`
+- **Query:** `none`
+- **Headers:**
+    ```JAVASCRIPT
+    {
+        "Authorization": "user auth token" // Optional, see additional info below
+        "X-Cart-Token": "cart token" // Optional, see additional info below
+    }
+    ```
+- **Additional Info:**
+    - You must send either the "Authorization" or "X-Cart-Token" header.
+    - Cart and all items will be deleted
+- **Response:**
+    ```JAVASCRIPT
+    {
+        "message": "Cart deleted",
+        "deletedId": "eb219d35-9a1f-492f-8b83-eab8660f3d74"
+    }
+    ```
+
+### Delete specific cart (Requires Auth)
+- **Method:** `DELETE`
+- **Path:** `/api/cart/:cart_id`
+- **Data:** `none`
+- **Query:** `none`
+- **Headers:**
+    ```JAVASCRIPT
+    {
+        "Authorization": "user auth token" // Required, see additional info below
+    }
+    ```
+- **Additional Info:**
+    - You must send the "Authorization" header.
+    - To delete a specific cart it must be a cart that belongs to the user
+    - Cart and all items will be deleted
+- **Response:**
+    ```JAVASCRIPT
+    {
+        "message": "Cart deleted",
+        "deletedId": "eb219d35-9a1f-492f-8b83-eab8660f3d74"
     }
     ```
 
