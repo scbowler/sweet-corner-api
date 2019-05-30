@@ -541,7 +541,7 @@ http://api.sc.lfzprototypes.com
 
 ### Get guest order details
 - **Method:** `POST`
-- **Path:** `/api/orders/:order_id`
+- **Path:** `/api/orders/guest/:order_id`
 - **Data:**
     ```JAVASCRIPT
     {
