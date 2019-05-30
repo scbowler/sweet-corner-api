@@ -539,6 +539,61 @@ http://api.sc.lfzprototypes.com
     }
     ```
 
+### Get guest order details
+- **Method:** `POST`
+- **Path:** `/api/orders/:order_id`
+- **Data:**
+    ```JAVASCRIPT
+    {
+        email: 'jane@example.com
+    }
+    ```
+- **Query:** `none`
+- **Headers:** `none`
+- **Additional Info:**
+    - Email must be the same email the order was created with
+    - The order ID is the "id" you receive when you place a guest order
+- **Response:**
+    ```JAVASCRIPT
+    {
+        "itemCount": 8,
+        "total": 3900,
+        "createdAt": "2019-05-30T22:15:24.000Z",
+        "id": "c7ea7018-3592-487b-96cf-25d89842f13f",
+        "status": "Pending",
+        "items": [
+            {
+                "each": 600,
+                "quantity": 2,
+                "total": 1200,
+                "id": "3dbc4b28-5858-475d-8ce9-2df6f56c6c89",
+                "product": {
+                    "name": "Vanilla Stack Cake",
+                    "id": "c17c4e65-ce9c-42b2-a8c6-1f51af5cd1b2",
+                    "thumbnail": {
+                        "altText": "Vanilla cupcake with vanilla frosting",
+                        "url": "http://localhost:9000/images/thumbnails/cupcake_sq_7.jpg"
+                    }
+                }
+            },
+            {
+                "each": 450,
+                "quantity": 6,
+                "total": 2700,
+                "id": "d9e9295c-67fb-4641-98cc-a69c510abc9f",
+                "product": {
+                    "name": "Double Lemon",
+                    "id": "dcfcd0f9-2ae8-46a5-bf64-d41a2c84ad10",
+                    "thumbnail": {
+                        "altText": "Lemon cupcake with piled high lemon frosting",
+                        "url": "http://localhost:9000/images/thumbnails/cupcake_sq_9.jpg"
+                    }
+                }
+            }
+        ]
+    }
+    ```
+
 ## User (Auth) Endpoints
 
 ### Create new User account
