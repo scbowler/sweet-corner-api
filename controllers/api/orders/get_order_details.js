@@ -50,7 +50,8 @@ module.exports = async (req, res, next) => {
 
         if(items.length){
             formattedItems = items.map(({ dataValues: {product: {name, pid, thumbnail}, pid: id, ...item}}) => ({
-                ...item.dataValues,
+                ...item,
+                total: item.each * item.quantity,
                 id,
                 product: {
                     name,
