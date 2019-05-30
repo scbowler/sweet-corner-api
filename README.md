@@ -510,6 +510,35 @@ http://api.sc.lfzprototypes.com
     }
     ```
 
+### Create new guest order - Guest Checkout
+- **Method:** `POST`
+- **Path:** `/api/orders/guest`
+- **Data:**
+    ```JAVASCRIPT
+    {
+        email: 'jane@example.com', // Required
+        firstName: 'Jane', // Required
+        lastName: 'Smith' // Required
+    }
+    ```
+- **Query:** `none`
+- **Headers:**
+    ```JAVASCRIPT
+    {
+        "X-Cart-Token": "cart token goes here" // Required
+    }
+    ```
+- **Additional Info:**
+    - Must send basic user data to associate with order.
+    - After checkout success, cart token will no longer be valid.
+- **Response:**
+    ```JAVASCRIPT
+    {
+        "message": "Your order has been placed",
+        "id": "c7ea7018-3592-487b-96cf-25d89842f13f"
+    }
+    ```
+
 ## User (Auth) Endpoints
 
 ### Create new User account
