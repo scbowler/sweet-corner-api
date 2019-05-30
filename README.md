@@ -15,38 +15,38 @@ http://api.sc.lfzprototypes.com
 - **Headers:** `none`
 - **Additional Info:** `none`
 - **Response:**
-```JAVASCRIPT
-{
-    "products": [
-        {
-            "id": "65481bd6-f571-45fb-9d21-2ffd0662f3d8",
-            "caption": "Delicious Strawberry Cupcake",
-            "cost": 350,
-            "name": "Strawberry Delight",
-            "thumbnail": {
-                "id": "db7e2412-8f4e-486b-af4a-b8f09c5711c0",
-                "altText": "Strawberry cupcake",
-                "file": "cupcake_sq_1.jpg",
-                "type": "thumbnails",
-                "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_1.jpg"
+    ```JAVASCRIPT
+    {
+        "products": [
+            {
+                "id": "65481bd6-f571-45fb-9d21-2ffd0662f3d8",
+                "caption": "Delicious Strawberry Cupcake",
+                "cost": 350,
+                "name": "Strawberry Delight",
+                "thumbnail": {
+                    "id": "db7e2412-8f4e-486b-af4a-b8f09c5711c0",
+                    "altText": "Strawberry cupcake",
+                    "file": "cupcake_sq_1.jpg",
+                    "type": "thumbnails",
+                    "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_1.jpg"
+                }
+            },
+            {
+                "id": "6f33d1ac-3750-4888-94b5-d4c5b520fc32",
+                "caption": "Sweet Berry Cupcake",
+                "cost": 200,
+                "name": "Purple Dream",
+                "thumbnail": {
+                    "id": "72b569d8-7c47-475b-8a03-5bb5b8d808b8",
+                    "altText": "Berry cupcake",
+                    "file": "cupcake_sq_2.jpg",
+                    "type": "thumbnails",
+                    "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_2.jpg"
+                }
             }
-        },
-        {
-            "id": "6f33d1ac-3750-4888-94b5-d4c5b520fc32",
-            "caption": "Sweet Berry Cupcake",
-            "cost": 200,
-            "name": "Purple Dream",
-            "thumbnail": {
-                "id": "72b569d8-7c47-475b-8a03-5bb5b8d808b8",
-                "altText": "Berry cupcake",
-                "file": "cupcake_sq_2.jpg",
-                "type": "thumbnails",
-                "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_2.jpg"
-            }
-        }
-    ]
-}
-```
+        ]
+    }
+    ```
 
 ### Get a single product's details
 - **Method:** `GET`
@@ -368,6 +368,145 @@ http://api.sc.lfzprototypes.com
     {
         "message": "Cart deleted",
         "deletedId": "eb219d35-9a1f-492f-8b83-eab8660f3d74"
+    }
+    ```
+
+## Order Endpoints
+
+### Get all user's orders (Requires Auth)
+- **Method:** `GET`
+- **Path:** `/api/orders`
+- **Data:** `none`
+- **Query:** `none`
+- **Headers:**
+    ```JAVASCRIPT
+    {
+        "Authorization": "user auth token" // Required, see additional info below
+    }
+    ```
+- **Additional Info:**
+    - Must be signed in to access the user's orders
+- **Response:**
+    ```JAVASCRIPT
+    {
+        "orders": [
+            {
+                "itemCount": 8,
+                "total": 6025,
+                "createdAt": "2019-05-17T23:07:51.000Z",
+                "id": "141b44e6-5379-468c-a978-8195fe922082",
+                "status": "Pending"
+            },
+            {
+                "itemCount": 18,
+                "total": 10150,
+                "createdAt": "2019-05-17T23:21:34.000Z",
+                "id": "39ecb33e-f7bd-4213-a767-d91982e55e5f",
+                "status": "Pending"
+            },
+            {
+                "itemCount": 8,
+                "total": 1600,
+                "createdAt": "2019-05-18T18:18:48.000Z",
+                "id": "47426637-fdf0-4393-90d5-4ccf6725c2c1",
+                "status": "Pending"
+            },
+            {
+                "itemCount": 8,
+                "total": 1600,
+                "createdAt": "2019-05-29T17:15:33.000Z",
+                "id": "29d40d56-a753-4914-8ca3-84fecbea8f51",
+                "status": "Pending"
+            }
+        ]
+    }
+
+### Get order details (Requires Auth)
+- **Method:** `GET`
+- **Path:** `/api/orders/:order_id`
+- **Data:** `none`
+- **Query:** `none`
+- **Headers:**
+    ```JAVASCRIPT
+    {
+        "Authorization": "user auth token" // Required, see additional info below
+    }
+    ```
+- **Additional Info:**
+    - Must be signed in to access order details, and be owner of requested order
+- **Response:**
+    ```JAVASCRIPT
+    {
+        "itemCount": 18,
+        "total": 10150,
+        "createdAt": "2019-05-17T23:21:34.000Z",
+        "id": "39ecb33e-f7bd-4213-a767-d91982e55e5f",
+        "status": "Pending",
+        "items": [
+            {
+                "each": 575,
+                "quantity": 6,
+                "total": 3450,
+                "id": "08901a1f-cfff-4df2-ae7d-837cd29fa7f1",
+                "product": {
+                    "name": "Pearl Rose",
+                    "id": "bacef6bc-f50a-45ee-b1c7-f05945842bf8",
+                    "thumbnail": {
+                        "altText": "Red and yellow vanilla cupcake",
+                        "url": "http://localhost:9000/images/thumbnails/cupcake_sq_5.jpg"
+                    }
+                }
+            },
+            {
+                "each": 775,
+                "quantity": 4,
+                "total": 3100,
+                "id": "483359eb-c232-431d-bb9a-d6f8c390b24b",
+                "product": {
+                    "name": "Blueberry Malt Cake",
+                    "id": "d2704033-6435-42c5-b7c4-c6543212a63b",
+                    "thumbnail": {
+                        "altText": "Blueberry cupcake piled high with toppings",
+                        "url": "http://localhost:9000/images/thumbnails/cupcake_sq_8.jpg"
+                    }
+                }
+            },
+            {
+                "each": 450,
+                "quantity": 8,
+                "total": 3600,
+                "id": "4ee3e1bd-1f71-411f-b0e8-68992d93b08b",
+                "product": {
+                    "name": "Double Lemon",
+                    "id": "dcfcd0f9-2ae8-46a5-bf64-d41a2c84ad10",
+                    "thumbnail": {
+                        "altText": "Lemon cupcake with piled high lemon frosting",
+                        "url": "http://localhost:9000/images/thumbnails/cupcake_sq_9.jpg"
+                    }
+                }
+            }
+        ]
+    }
+    ```
+
+### Create new order - Checkout (Requires Auth)
+- **Method:** `POST`
+- **Path:** `/api/orders`
+- **Data:** `none`
+- **Query:** `none`
+- **Headers:**
+    ```JAVASCRIPT
+    {
+        "Authorization": "user auth token" // Required, see additional info below
+    }
+    ```
+- **Additional Info:**
+    - Must be signed in to checkout with this route, for guest checkout see below
+- **Response:**
+    ```JAVASCRIPT
+    {
+        "message": "Your order has been placed",
+        "id": "97747518-97c6-44e1-bb71-bbe34b6862f3"
     }
     ```
 
