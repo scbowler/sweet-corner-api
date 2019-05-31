@@ -4,7 +4,11 @@ const { StatusError } = require(__basedir + '/helpers/error_handling');
 
 exports.findGuest = async (req, res, next) => {
     try {
-        const { email } = req.body;
+        let { email } = req.body;
+
+        if (!email && req.query.email){
+            email = req.query.email;
+        }
 
         if (!email) errors.push('No email address provided');
         else if (!validation.email(email)) errors.push('Invalid email address provided');
