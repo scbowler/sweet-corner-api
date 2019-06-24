@@ -11,20 +11,29 @@ module.exports = async (req, res, next) => {
             }
         });
 
+        let formattedProducts = [];
+
         if(allProducts){
-            allProducts.map(p => {
-                const product = p.dataValues;
+            formattedProducts = allProducts.map(p => {
+                const {pid, ...product} = p.dataValues;
 
-                product.thumbnail = p.thumbnail.dataValues
+                const { pid: thumbnailPid, ...thumbnail } = p.thumbnail.dataValues
 
-                product.thumbnail.url = imageUrls(req, p.thumbnail);
+                thumbnail.url = imageUrls(req, p.thumbnail);
 
-                return product;
+                return {
+                    id: pid,
+                    ...product,
+                    thumbnail: {
+                        id: thumbnailPid,
+                        ...thumbnail
+                    }
+                };
             });
         }
 
         res.send({
-            products: allProducts || []
+            products: formattedProducts || []
         });
     } catch(err){
         err.default = 'Error fetching product list';

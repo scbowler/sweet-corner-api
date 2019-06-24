@@ -1,13 +1,11 @@
 const router = require('express').Router();
 const { notFound } = require(__basedir + '/controllers/errors');
-const { createAccount, jwtSignIn, signIn, test } = require(__basedir + '/controllers/auth');
+const { createAccount, jwtSignIn, signIn } = require(__basedir + '/controllers/auth');
 const { requireBasicAuth, requireSignIn } = require('../setup.js');
 
 /*
     /auth routes
 */
-
-router.get('/test', test);
 
 router.post('/create-account', createAccount);
 

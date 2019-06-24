@@ -15,6 +15,6 @@ router.post('/', requireBasicAuth, withCart, newOrder);
 
 router.post('/guest', findOrCreateGuest, withCart, newOrder);
 
-router.post('/guest/:orderId', findGuest, getOrderDetails);
+router.get('/guest/:orderId', findGuest, getOrderDetails);
 
 module.exports = router;
