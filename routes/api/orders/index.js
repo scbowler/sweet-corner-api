@@ -7,13 +7,13 @@ const { findGuest, findOrCreateGuest } = require(__basedir + '/middleware/guest'
     /api/orders routes
 */
 
-router.get('/', requireBasicAuth, getAllUserOrders); //
+router.get('/', requireBasicAuth, getAllUserOrders);
 
-router.get('/:orderId', requireBasicAuth, getOrderDetails); //
+router.get('/:orderId', requireBasicAuth, getOrderDetails);
 
-router.post('/', requireBasicAuth, withCart, newOrder); //
+router.post('/', requireBasicAuth, withCart, newOrder);
 
-router.post('/guest', findOrCreateGuest, withCart, newOrder); //
+router.post('/guest', findOrCreateGuest, withCart, newOrder);
 
 router.get('/guest/:orderId', findGuest, getOrderDetails);
 
