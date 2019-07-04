@@ -626,7 +626,7 @@ http://api.sc.lfzprototypes.com
 
 ### User sign in
 - **Method:** `POST`
-- **Path:** `/api/sign-in`
+- **Path:** `/auth/sign-in`
 - **Data:**
     ```JAVASCRIPT
     {
@@ -657,7 +657,7 @@ http://api.sc.lfzprototypes.com
 
 ### User JWT sign in
 - **Method:** `GET`
-- **Path:** `/api/sign-in`
+- **Path:** `/auth/sign-in`
 - **Data:** `none`
 - **Query:** `none`
 - **Headers:**
