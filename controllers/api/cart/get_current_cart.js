@@ -3,7 +3,9 @@ module.exports = async (req, res) => {
     
     let formattedCart = {
         cartId: null,
-        message: 'No active cart'
+        items: [],
+        message: 'No active cart',
+        total: {}
     }
 
     if(cart){
