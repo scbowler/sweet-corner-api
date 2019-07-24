@@ -42,15 +42,13 @@ module.exports = async (req, res, next) => {
                 throw new StatusError(500, 'Unable to create customer');
             }
 
-            const newUser = users.build({
+            user = await users.create({
                 email,
                 firstName,
                 lastName,
                 password,
                 roleId
             });
-
-            user = await newUser.save();
         } catch (err) {
             throw new StatusError(500, 'Unable to create new user');
         }
