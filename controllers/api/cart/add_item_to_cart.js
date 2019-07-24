@@ -44,18 +44,17 @@ module.exports = async (req, res, next) => {
 
             if(cartItem){
                 cartItem.quantity += parseInt(quantity);
+                await cartItem.save();
             }
         }
 
         if(!cartItem){
-            cartItem = await cartItems.build({
+            cartItem = await cartItems.create({
                 cartId: cart.id,
                 productId: productShortId,
                 quantity
             });
         }
-
-        await cartItem.save();
 
         await cart.cartUsed();
 
