@@ -3,7 +3,7 @@ const validation = require(__basedir + '/helpers/validation');
 const { StatusError } = require(__basedir + '/helpers/error_handling');
 const { createCartToken } = require('./helpers');
 
-module.exports = async (req, res) => {
+module.exports = async (req, res, next) => {
     try {
         const { body: { quantity = 1 }, params: { productId }, user } = req;
         let { cart } = req;
