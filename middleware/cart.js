@@ -7,9 +7,12 @@ exports.withCart = cartHeader => {
     if(!cartHeader) throw new Error('Missing cart header key, check cart middleware config');
     return async (req, res, next) => {
         try {
-            const { headers: { [cartHeader]: cartToken }, user } = req;
+            const { user } = req;
+            let { [cartHeader]: cartToken } = req.headers;
 
             req.cart = null;
+
+            if (cartToken === '[object Object]') cartToken = null;
 
             if (user) {
                 req.cart = await carts.findActiveByUid(user.id);
