@@ -543,7 +543,7 @@ http://api.sc.lfzprototypes.com
 - **Method:** `GET`
 - **Path:** `/api/orders/guest/:order_id`
 - **Data:** `none`
-- **Query:** `?email=jane@example.com'`
+- **Query:** `?email=jane@example.com`
 - **Headers:** `none`
 - **Additional Info:**
     - Email must be the same email the order was created with
