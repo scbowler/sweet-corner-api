@@ -3,6 +3,7 @@ const { addToDatabase } = require(__basedir + '/helpers');
 
 const defaultProducts = [
     {
+        calories: 300,
         caption: 'Delicious Strawberry Cupcake',
         cost: 350,
         description: 'These strawberry delights will satisfy both your sweet tooth and those strawberry cravings.',
@@ -12,6 +13,7 @@ const defaultProducts = [
         thumbnailId: 2
     },
     {
+        calories: 350,
         caption: 'Sweet Berry Cupcake',
         cost: 200,
         description: 'This is the berry cupcake of your dreams, they may be small but pack huge flavor.',
@@ -21,6 +23,7 @@ const defaultProducts = [
         thumbnailId: 4
     },
     {
+        calories: 200,
         caption: 'Mini Strawberry Cupcake',
         cost: 225,
         description: 'These are a miniature version of our famous Strawberry Delight cupcakes, all the flavor, half the guilt.',
@@ -30,6 +33,7 @@ const defaultProducts = [
         thumbnailId: 6
     },
     {
+        calories: 280,
         caption: 'Unicorn Tear Sparkling Cupcake',
         cost: 650,
         description: 'What do unicorn tears taste like? We don\'t know, but we do know these cupcakes taste better!',
@@ -39,6 +43,7 @@ const defaultProducts = [
         thumbnailId: 8
     },
     {
+        calories: 175,
         caption: 'Red and Yellow Rose Vanilla Cupcake',
         cost: 575,
         description: 'Delightful vanilla cupcakes with rose frosting piled high on top.',
@@ -48,6 +53,7 @@ const defaultProducts = [
         thumbnailId: 10
     },
     {
+        calories: 230,
         caption: 'Silky Red Cupcake Loaded with Frosting',
         cost: 350,
         description: 'A vanilla cupcake with strawberry silk frosting eloquently piled high with a peach topping.',
@@ -57,6 +63,7 @@ const defaultProducts = [
         thumbnailId: 12
     },
     {
+        calories: 320,
         caption: 'Vanilla Cupcake Piled with Vanilla Frosting',
         cost: 600,
         description: 'Not just another vanilla cupcake. Our Vanilla Stack Cake cupcake is stacked with three scoops of vanilla frosting and topped with drizzled vanilla and a delicious cherry.',
@@ -66,6 +73,7 @@ const defaultProducts = [
         thumbnailId: 14
     },
     {
+        calories: 345,
         caption: 'Blueberry Cupcake Piled High with Toppings',
         cost: 775,
         description: 'A large blueberry cupcake topped with blueberry frosting, chocolate syrup, whip cream, and a sweet cherry. Looks and taste like your favorite blueberry malt.',
@@ -75,6 +83,7 @@ const defaultProducts = [
         thumbnailId: 16
     },
     {
+        calories: 230,
         caption: 'Lemon Cupcake with Piled High Lemon Frosting',
         cost: 450,
         description: 'Lemon, lemon, and more lemon! Love lemon? So do we and our Double Lemon cupcake proves it!',

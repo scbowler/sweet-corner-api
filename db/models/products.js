@@ -3,6 +3,10 @@ const { findByPid } = require('./interfaces');
 
 module.exports = (db, images, users) => {
     const Products = db.define('products', {
+        calories: {
+            allowNull: false,
+            type: Sequelize.INTEGER.UNSIGNED
+        },
         caption: {
             allowNull: true,
             type: Sequelize.STRING
