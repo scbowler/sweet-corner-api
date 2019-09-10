@@ -30,4 +30,6 @@ sequelize.sync().then( async () => {
     await require('./initial_data/products')();
     await require('./initial_data/cart_statuses')();
     await require('./initial_data/order_statuses')();
+    await require('./initial_data/allergies')();
+    await require('./initial_data/nutrition')();
 });
