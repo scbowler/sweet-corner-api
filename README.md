@@ -178,11 +178,11 @@ http://api.sc.lfzprototypes.com
             "each": 200,
             "itemId": "2edb2c46-2053-4c9b-8e3b-277bd2fba7e6",
             "name": "Purple Dream",
-            "productId": "6f33d1ac-3750-4888-94b5-d4c5b520fc32",
+            "productId": "4d8f1fd1-1801-41a7-99ce-4b5865c4e143",
             "quantity": 2,
             "thumbnail": {
                 "altText": "Berry cupcake",
-                "url": "http://localhost:9000/images/undefined/undefined"
+                "url": "http://localhost:9000/images/thumbnails/cupcake_sq_2.jpg"
             },
             "total": 400
         },
@@ -299,11 +299,11 @@ http://api.sc.lfzprototypes.com
             "each": 200,
             "itemId": "2edb2c46-2053-4c9b-8e3b-277bd2fba7e6",
             "name": "Purple Dream",
-            "productId": "6f33d1ac-3750-4888-94b5-d4c5b520fc32",
+            "productId": "4d8f1fd1-1801-41a7-99ce-4b5865c4e143",
             "quantity": 4,
             "thumbnail": {
                 "altText": "Berry cupcake",
-                "url": "http://localhost:9000/images/undefined/undefined"
+                "url": "http://localhost:9000/images/thumbnails/cupcake_sq_2.jpg"
             },
             "total": 800
         },
@@ -345,11 +345,11 @@ http://api.sc.lfzprototypes.com
             "each": 200,
             "itemId": "2edb2c46-2053-4c9b-8e3b-277bd2fba7e6",
             "name": "Purple Dream",
-            "productId": "6f33d1ac-3750-4888-94b5-d4c5b520fc32",
+            "productId": "4d8f1fd1-1801-41a7-99ce-4b5865c4e143",
             "quantity": 3,
             "thumbnail": {
                 "altText": "Berry cupcake",
-                "url": "http://localhost:9000/images/undefined/undefined"
+                "url": "http://localhost:9000/images/thumbnails/cupcake_sq_2.jpg"
             },
             "total": 600
         },
@@ -660,7 +660,7 @@ http://api.sc.lfzprototypes.com
 - **Data:**
     ```JAVASCRIPT
     {
-        email: 'example@email.com', // Must be a valid email address
+        email: 'jane@example.com', // Must be a valid email address
         firstName: 'Jane',
         lastName: 'Doe',
         password: 'Qwerty1!' // Must have an uppercase letter, lowercase letter, number, special character, and be at least 8 characters long
@@ -681,7 +681,7 @@ http://api.sc.lfzprototypes.com
         "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjMsInRzIjoxNTU5MTU5ODk0MDUzfQ.SZNcSeB8ZMABdLUX94dVl6XyomjOj-pgelSWTeQXLQI",
         "user": {
             "name": "Jane Doe",
-            "email": "example@email.com",
+            "email": "jane@example.com",
             "pid": "1c2158a8-c5fb-4a61-8e10-cdc02a48635b"
         }
     }
@@ -693,7 +693,7 @@ http://api.sc.lfzprototypes.com
 - **Data:**
     ```JAVASCRIPT
     {
-        email: 'example@email.com',
+        email: 'jane@example.com',
         password: 'Qwerty1!'
     }
     ```
@@ -712,7 +712,7 @@ http://api.sc.lfzprototypes.com
         "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjMsInRzIjoxNTU5MTYwNDUyNjgwfQ.c04btYz8m4fNa4UGkSwGHxd-mnrXNzCbMfpYFHWHB8U",
         "user": {
             "name": "Jane Doe",
-            "email": "example@email.com",
+            "email": "jane@example.com",
             "pid": "1c2158a8-c5fb-4a61-8e10-cdc02a48635b"
         }
     }
@@ -737,7 +737,7 @@ http://api.sc.lfzprototypes.com
     {
         "user": {
             "name": "Jane Doe",
-            "email": "example@email.com",
+            "email": "jane@example.com",
             "pid": "1c2158a8-c5fb-4a61-8e10-cdc02a48635b"
         }
     }
