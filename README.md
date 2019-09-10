@@ -48,6 +48,69 @@ http://api.sc.lfzprototypes.com
     }
     ```
 
+### Get all products FULL
+- **Method:** `GET`
+- **Path:** `/api/products/full`
+- **Data:** `none`
+- **Query:** `none`
+- **Headers:** `none`
+- **Additional Info:** `none`
+- **Response:**
+    ```JAVASCRIPT
+    {
+        "products": [
+            {
+                "id": "825e97f3-f2f6-4c21-9a05-94865f346b8b",
+                "calories": 300,
+                "caption": "Delicious Strawberry Cupcake",
+                "cost": 350,
+                "name": "Strawberry Delight",
+                "thumbnail": {
+                    "id": "a868e043-5c8e-481f-b3db-0f465b479227",
+                    "altText": "Strawberry cupcake",
+                    "file": "cupcake_sq_1.jpg",
+                    "type": "thumbnails",
+                    "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_1.jpg"
+                },
+                "allergy": {
+                    "dairy": true,
+                    "gluten": true,
+                    "nuts": false
+                },
+                "nutrition": {
+                    "carbs": 200,
+                    "fat": 100,
+                    "sugar": 130
+                }
+            },
+            {
+                "id": "4d8f1fd1-1801-41a7-99ce-4b5865c4e143",
+                "calories": 350,
+                "caption": "Sweet Berry Cupcake",
+                "cost": 200,
+                "name": "Purple Dream",
+                "thumbnail": {
+                    "id": "eaee149b-c2f0-452f-8ed0-ba0c9bb6e88d",
+                    "altText": "Berry cupcake",
+                    "file": "cupcake_sq_2.jpg",
+                    "type": "thumbnails",
+                    "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_2.jpg"
+                },
+                "allergy": {
+                    "dairy": false,
+                    "gluten": true,
+                    "nuts": true
+                },
+                "nutrition": {
+                    "carbs": 220,
+                    "fat": 200,
+                    "sugar": 150
+                }
+            }
+        ]
+    }
+    ```
+
 ### Get a single product's details
 - **Method:** `GET`
 - **Path:** `/api/products/:product_id`
