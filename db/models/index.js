@@ -8,6 +8,10 @@ const images = require('./images')(db, users);
 
 const products = require('./products')(db, images, users);
 
+const allergies = require('./allergies')(db, products);
+
+const nutrition = require('./nutrition')(db, products);
+
 const cartStatuses = require('./cart_statuses')(db);
 
 const carts = require('./cart')(db, cartStatuses, users);
@@ -23,11 +27,13 @@ const orders = require('./orders')(db, carts, guests, orderStatuses, users);
 const orderItems = require('./order_items')(db, orders, products);
 
 module.exports = {
+    allergies,
     cartItems,
     cartStatuses,
     carts,
     guests,
     images,
+    nutrition,
     orderItems,
     orderStatuses,
     orders,
