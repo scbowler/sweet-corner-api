@@ -182,7 +182,7 @@ http://api.sc.lfzprototypes.com
             "quantity": 2,
             "thumbnail": {
                 "altText": "Berry cupcake",
-                "url": "http://localhost:9000/images/thumbnails/cupcake_sq_2.jpg"
+                "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_2.jpg"
             },
             "total": 400
         },
@@ -225,7 +225,7 @@ http://api.sc.lfzprototypes.com
                 "quantity": 2,
                 "thumbnail": {
                     "altText": "Berry cupcake",
-                    "url": "http://localhost:9000/images/thumbnails/cupcake_sq_2.jpg"
+                    "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_2.jpg"
                 },
                 "total": 400
             }
@@ -303,7 +303,7 @@ http://api.sc.lfzprototypes.com
             "quantity": 4,
             "thumbnail": {
                 "altText": "Berry cupcake",
-                "url": "http://localhost:9000/images/thumbnails/cupcake_sq_2.jpg"
+                "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_2.jpg"
             },
             "total": 800
         },
@@ -349,7 +349,7 @@ http://api.sc.lfzprototypes.com
             "quantity": 3,
             "thumbnail": {
                 "altText": "Berry cupcake",
-                "url": "http://localhost:9000/images/thumbnails/cupcake_sq_2.jpg"
+                "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_2.jpg"
             },
             "total": 600
         },
@@ -516,7 +516,7 @@ http://api.sc.lfzprototypes.com
                     "id": "bacef6bc-f50a-45ee-b1c7-f05945842bf8",
                     "thumbnail": {
                         "altText": "Red and yellow vanilla cupcake",
-                        "url": "http://localhost:9000/images/thumbnails/cupcake_sq_5.jpg"
+                        "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_5.jpg"
                     }
                 }
             },
@@ -530,7 +530,7 @@ http://api.sc.lfzprototypes.com
                     "id": "d2704033-6435-42c5-b7c4-c6543212a63b",
                     "thumbnail": {
                         "altText": "Blueberry cupcake piled high with toppings",
-                        "url": "http://localhost:9000/images/thumbnails/cupcake_sq_8.jpg"
+                        "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_8.jpg"
                     }
                 }
             },
@@ -544,7 +544,7 @@ http://api.sc.lfzprototypes.com
                     "id": "dcfcd0f9-2ae8-46a5-bf64-d41a2c84ad10",
                     "thumbnail": {
                         "altText": "Lemon cupcake with piled high lemon frosting",
-                        "url": "http://localhost:9000/images/thumbnails/cupcake_sq_9.jpg"
+                        "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_9.jpg"
                     }
                 }
             }
@@ -630,7 +630,7 @@ http://api.sc.lfzprototypes.com
                     "id": "c17c4e65-ce9c-42b2-a8c6-1f51af5cd1b2",
                     "thumbnail": {
                         "altText": "Vanilla cupcake with vanilla frosting",
-                        "url": "http://localhost:9000/images/thumbnails/cupcake_sq_7.jpg"
+                        "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_7.jpg"
                     }
                 }
             },
@@ -644,7 +644,7 @@ http://api.sc.lfzprototypes.com
                     "id": "dcfcd0f9-2ae8-46a5-bf64-d41a2c84ad10",
                     "thumbnail": {
                         "altText": "Lemon cupcake with piled high lemon frosting",
-                        "url": "http://localhost:9000/images/thumbnails/cupcake_sq_9.jpg"
+                        "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_9.jpg"
                     }
                 }
             }
