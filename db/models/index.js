@@ -26,6 +26,9 @@ const orders = require('./orders')(db, carts, guests, orderStatuses, users);
 
 const orderItems = require('./order_items')(db, orders, products);
 
+products.hasOne(allergies);
+products.hasOne(nutrition);
+
 module.exports = {
     allergies,
     cartItems,
