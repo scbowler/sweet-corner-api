@@ -48,6 +48,69 @@ http://api.sc.lfzprototypes.com
     }
     ```
 
+### Get all products FULL
+- **Method:** `GET`
+- **Path:** `/api/products/full`
+- **Data:** `none`
+- **Query:** `none`
+- **Headers:** `none`
+- **Additional Info:** `none`
+- **Response:**
+    ```JAVASCRIPT
+    {
+        "products": [
+            {
+                "id": "825e97f3-f2f6-4c21-9a05-94865f346b8b",
+                "calories": 300,
+                "caption": "Delicious Strawberry Cupcake",
+                "cost": 350,
+                "name": "Strawberry Delight",
+                "thumbnail": {
+                    "id": "a868e043-5c8e-481f-b3db-0f465b479227",
+                    "altText": "Strawberry cupcake",
+                    "file": "cupcake_sq_1.jpg",
+                    "type": "thumbnails",
+                    "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_1.jpg"
+                },
+                "allergy": {
+                    "dairy": true,
+                    "gluten": true,
+                    "nuts": false
+                },
+                "nutrition": {
+                    "carbs": 200,
+                    "fat": 100,
+                    "sugar": 130
+                }
+            },
+            {
+                "id": "4d8f1fd1-1801-41a7-99ce-4b5865c4e143",
+                "calories": 350,
+                "caption": "Sweet Berry Cupcake",
+                "cost": 200,
+                "name": "Purple Dream",
+                "thumbnail": {
+                    "id": "eaee149b-c2f0-452f-8ed0-ba0c9bb6e88d",
+                    "altText": "Berry cupcake",
+                    "file": "cupcake_sq_2.jpg",
+                    "type": "thumbnails",
+                    "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_2.jpg"
+                },
+                "allergy": {
+                    "dairy": false,
+                    "gluten": true,
+                    "nuts": true
+                },
+                "nutrition": {
+                    "carbs": 220,
+                    "fat": 200,
+                    "sugar": 150
+                }
+            }
+        ]
+    }
+    ```
+
 ### Get a single product's details
 - **Method:** `GET`
 - **Path:** `/api/products/:product_id`
@@ -115,11 +178,11 @@ http://api.sc.lfzprototypes.com
             "each": 200,
             "itemId": "2edb2c46-2053-4c9b-8e3b-277bd2fba7e6",
             "name": "Purple Dream",
-            "productId": "6f33d1ac-3750-4888-94b5-d4c5b520fc32",
+            "productId": "4d8f1fd1-1801-41a7-99ce-4b5865c4e143",
             "quantity": 2,
             "thumbnail": {
                 "altText": "Berry cupcake",
-                "url": "http://localhost:9000/images/undefined/undefined"
+                "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_2.jpg"
             },
             "total": 400
         },
@@ -162,7 +225,7 @@ http://api.sc.lfzprototypes.com
                 "quantity": 2,
                 "thumbnail": {
                     "altText": "Berry cupcake",
-                    "url": "http://localhost:9000/images/thumbnails/cupcake_sq_2.jpg"
+                    "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_2.jpg"
                 },
                 "total": 400
             }
@@ -236,11 +299,11 @@ http://api.sc.lfzprototypes.com
             "each": 200,
             "itemId": "2edb2c46-2053-4c9b-8e3b-277bd2fba7e6",
             "name": "Purple Dream",
-            "productId": "6f33d1ac-3750-4888-94b5-d4c5b520fc32",
+            "productId": "4d8f1fd1-1801-41a7-99ce-4b5865c4e143",
             "quantity": 4,
             "thumbnail": {
                 "altText": "Berry cupcake",
-                "url": "http://localhost:9000/images/undefined/undefined"
+                "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_2.jpg"
             },
             "total": 800
         },
@@ -282,11 +345,11 @@ http://api.sc.lfzprototypes.com
             "each": 200,
             "itemId": "2edb2c46-2053-4c9b-8e3b-277bd2fba7e6",
             "name": "Purple Dream",
-            "productId": "6f33d1ac-3750-4888-94b5-d4c5b520fc32",
+            "productId": "4d8f1fd1-1801-41a7-99ce-4b5865c4e143",
             "quantity": 3,
             "thumbnail": {
                 "altText": "Berry cupcake",
-                "url": "http://localhost:9000/images/undefined/undefined"
+                "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_2.jpg"
             },
             "total": 600
         },
@@ -453,7 +516,7 @@ http://api.sc.lfzprototypes.com
                     "id": "bacef6bc-f50a-45ee-b1c7-f05945842bf8",
                     "thumbnail": {
                         "altText": "Red and yellow vanilla cupcake",
-                        "url": "http://localhost:9000/images/thumbnails/cupcake_sq_5.jpg"
+                        "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_5.jpg"
                     }
                 }
             },
@@ -467,7 +530,7 @@ http://api.sc.lfzprototypes.com
                     "id": "d2704033-6435-42c5-b7c4-c6543212a63b",
                     "thumbnail": {
                         "altText": "Blueberry cupcake piled high with toppings",
-                        "url": "http://localhost:9000/images/thumbnails/cupcake_sq_8.jpg"
+                        "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_8.jpg"
                     }
                 }
             },
@@ -481,7 +544,7 @@ http://api.sc.lfzprototypes.com
                     "id": "dcfcd0f9-2ae8-46a5-bf64-d41a2c84ad10",
                     "thumbnail": {
                         "altText": "Lemon cupcake with piled high lemon frosting",
-                        "url": "http://localhost:9000/images/thumbnails/cupcake_sq_9.jpg"
+                        "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_9.jpg"
                     }
                 }
             }
@@ -567,7 +630,7 @@ http://api.sc.lfzprototypes.com
                     "id": "c17c4e65-ce9c-42b2-a8c6-1f51af5cd1b2",
                     "thumbnail": {
                         "altText": "Vanilla cupcake with vanilla frosting",
-                        "url": "http://localhost:9000/images/thumbnails/cupcake_sq_7.jpg"
+                        "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_7.jpg"
                     }
                 }
             },
@@ -581,7 +644,7 @@ http://api.sc.lfzprototypes.com
                     "id": "dcfcd0f9-2ae8-46a5-bf64-d41a2c84ad10",
                     "thumbnail": {
                         "altText": "Lemon cupcake with piled high lemon frosting",
-                        "url": "http://localhost:9000/images/thumbnails/cupcake_sq_9.jpg"
+                        "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_9.jpg"
                     }
                 }
             }
@@ -597,7 +660,7 @@ http://api.sc.lfzprototypes.com
 - **Data:**
     ```JAVASCRIPT
     {
-        email: 'example@email.com', // Must be a valid email address
+        email: 'jane@example.com', // Must be a valid email address
         firstName: 'Jane',
         lastName: 'Doe',
         password: 'Qwerty1!' // Must have an uppercase letter, lowercase letter, number, special character, and be at least 8 characters long
@@ -618,7 +681,7 @@ http://api.sc.lfzprototypes.com
         "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjMsInRzIjoxNTU5MTU5ODk0MDUzfQ.SZNcSeB8ZMABdLUX94dVl6XyomjOj-pgelSWTeQXLQI",
         "user": {
             "name": "Jane Doe",
-            "email": "example@email.com",
+            "email": "jane@example.com",
             "pid": "1c2158a8-c5fb-4a61-8e10-cdc02a48635b"
         }
     }
@@ -630,7 +693,7 @@ http://api.sc.lfzprototypes.com
 - **Data:**
     ```JAVASCRIPT
     {
-        email: 'example@email.com',
+        email: 'jane@example.com',
         password: 'Qwerty1!'
     }
     ```
@@ -649,7 +712,7 @@ http://api.sc.lfzprototypes.com
         "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1aWQiOjMsInRzIjoxNTU5MTYwNDUyNjgwfQ.c04btYz8m4fNa4UGkSwGHxd-mnrXNzCbMfpYFHWHB8U",
         "user": {
             "name": "Jane Doe",
-            "email": "example@email.com",
+            "email": "jane@example.com",
             "pid": "1c2158a8-c5fb-4a61-8e10-cdc02a48635b"
         }
     }
@@ -674,7 +737,7 @@ http://api.sc.lfzprototypes.com
     {
         "user": {
             "name": "Jane Doe",
-            "email": "example@email.com",
+            "email": "jane@example.com",
             "pid": "1c2158a8-c5fb-4a61-8e10-cdc02a48635b"
         }
     }
