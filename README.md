@@ -121,24 +121,35 @@ http://api.sc.lfzprototypes.com
 - **Response:**
 ```JAVASCRIPT
 {
-    "id": "65481bd6-f571-45fb-9d21-2ffd0662f3d8",
+    "id": "6686e24c-db9b-48b9-8d80-65ac4e6d94d3",
+    "calories": 300,
     "caption": "Delicious Strawberry Cupcake",
     "cost": 350,
     "description": "These strawberry delights will satisfy both your sweet tooth and those strawberry cravings.",
     "name": "Strawberry Delight",
     "image": {
-        "id": "6a2d268d-b2ed-40a3-87bb-2f06a58a67b2",
+        "id": "1edda9cc-fea0-4b00-b9eb-34a84572ed67",
         "altText": "Strawberry cupcake",
         "file": "cupcake_sq_1.jpg",
         "type": "full_images",
         "url": "http://api.sc.lfzprototypes.com/images/full_images/cupcake_sq_1.jpg"
     },
     "thumbnail": {
-        "id": "db7e2412-8f4e-486b-af4a-b8f09c5711c0",
+        "id": "1e69c592-8bf5-4da3-9aa3-993936898d20",
         "altText": "Strawberry cupcake",
         "file": "cupcake_sq_1.jpg",
         "type": "thumbnails",
         "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_1.jpg"
+    },
+    "allergy": {
+        "dairy": true,
+        "gluten": true,
+        "nuts": false
+    },
+    "nutrition": {
+        "carbs": 200,
+        "fat": 100,
+        "sugar": 130
     }
 }
 ```
