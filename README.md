@@ -132,14 +132,14 @@ http://api.sc.lfzprototypes.com
         "altText": "Strawberry cupcake",
         "file": "cupcake_sq_1.jpg",
         "type": "full_images",
-        "url": "http://localhost:9000/images/full_images/cupcake_sq_1.jpg"
+        "url": "http://api.sc.lfzprototypes.com/images/full_images/cupcake_sq_1.jpg"
     },
     "thumbnail": {
         "id": "1e69c592-8bf5-4da3-9aa3-993936898d20",
         "altText": "Strawberry cupcake",
         "file": "cupcake_sq_1.jpg",
         "type": "thumbnails",
-        "url": "http://localhost:9000/images/thumbnails/cupcake_sq_1.jpg"
+        "url": "http://api.sc.lfzprototypes.com/images/thumbnails/cupcake_sq_1.jpg"
     },
     "allergy": {
         "dairy": true,
