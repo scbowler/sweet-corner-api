@@ -13,7 +13,7 @@ module.exports = async (req, res, next) => {
         }
 
         const product = await products.findByPid(product_id, {
-            attributes: ['caption', 'cost', 'description', 'name', 'pid'],
+            attributes: ['calories', 'caption', 'cost', 'description', 'name', 'pid'],
             include: [
                 {
                     association: 'image',
