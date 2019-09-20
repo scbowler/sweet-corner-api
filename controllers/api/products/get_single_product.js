@@ -1,4 +1,5 @@
-const { products } = require(__basedir + '/db/models');
+const Sequelize = require('sequelize');
+const { allergies, nutrition, products } = require(__basedir + '/db/models');
 const { imageUrls } = require(__basedir + '/helpers');
 const validation = require(__basedir + '/helpers/validation');
 const { StatusError } = require(__basedir + '/helpers/error_handling');
@@ -21,6 +22,16 @@ module.exports = async (req, res, next) => {
                 {
                     association: 'thumbnail',
                     attributes: ['altText', 'file', 'pid', 'type']
+                },
+                {
+                    attributes: ['dairy', 'gluten', 'nuts'],
+                    model: allergies,
+                    where: { productId: Sequelize.col('products.id') }
+                },
+                {
+                    attributes: ['carbs', 'fat', 'sugar'],
+                    model: nutrition,
+                    where: { productId: Sequelize.col('products.id') }
                 }
             ]
         });
