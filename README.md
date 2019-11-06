@@ -176,7 +176,7 @@ http://api.sc.lfzprototypes.com
 - **Additional Info:**
     - If the "Authorization" header is sent, the item will be added to the users currently active cart. If the user does not have an active cart, a new cart will be created and become the active cart.
     - If the "X-Cart-Token" header is sent, the item will be added to the cart that belongs to that token.
-    - If no headers are sent a new cart will be created and the cart token will be sent in the response. All subsequent requests should use the provided cart token if not logged in, this will ensure that all user items will be added to the same cart. 
+    - If no headers are sent a new cart will be created and the cart token will be sent in the response. All subsequent requests should use the provided cart token if not logged in, this will ensure that all user items will be added to the same cart.
     - If the item already exists in the currently active cart, the quantity of that item will be adjusted based on the quantity sent. Quantity defaults to 1 if not sent.
     - If both the auth and cart headers are sent, the auth header will take precedence. Once the user signs in or registers, the cart will be transferred to the user so the cart token is no longer needed and becomes invalid.
 - **Response:**
@@ -281,7 +281,7 @@ http://api.sc.lfzprototypes.com
 
 ### Update shopping cart item's quantity
 - **Method:** `PATCH`
-- **Path:** `/api/cart/item/:item_id`
+- **Path:** `/api/cart/items/:item_id`
 - **Data:**
     ```JAVASCRIPT
         {
@@ -328,7 +328,7 @@ http://api.sc.lfzprototypes.com
 
 ### Set shopping cart item's quantity
 - **Method:** `PUT`
-- **Path:** `/api/cart/item/:item_id`
+- **Path:** `/api/cart/items/:item_id`
 - **Data:**
     ```JAVASCRIPT
         {
@@ -374,7 +374,7 @@ http://api.sc.lfzprototypes.com
 
 ### Delete item from cart
 - **Method:** `DELETE`
-- **Path:** `/api/cart/item/:item_id`
+- **Path:** `/api/cart/items/:item_id`
 - **Data:** `none`
 - **Query:** `none`
 - **Headers:**
