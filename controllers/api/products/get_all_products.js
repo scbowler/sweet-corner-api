@@ -4,7 +4,7 @@ const { imageUrls } = require(__basedir + '/helpers');
 module.exports = async (req, res, next) => {
     try {
         const allProducts = await products.findAll({
-            attributes: ['caption', 'cost', 'name', 'pid'],
+            attributes: [ 'calories', 'caption', 'cost', 'name', 'pid'],
             include: {
                 association: 'thumbnail',
                 attributes: ['altText', 'file', 'pid', 'type']
