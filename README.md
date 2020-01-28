@@ -20,6 +20,7 @@ http://api.sc.lfzprototypes.com
         "products": [
             {
                 "id": "65481bd6-f571-45fb-9d21-2ffd0662f3d8",
+                "calories": 300,
                 "caption": "Delicious Strawberry Cupcake",
                 "cost": 350,
                 "name": "Strawberry Delight",
@@ -33,6 +34,7 @@ http://api.sc.lfzprototypes.com
             },
             {
                 "id": "6f33d1ac-3750-4888-94b5-d4c5b520fc32",
+                "calories": 350,
                 "caption": "Sweet Berry Cupcake",
                 "cost": 200,
                 "name": "Purple Dream",
